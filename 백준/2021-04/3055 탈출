@@ -1,0 +1,120 @@
+import java.util.*;
+import java.io.*;
+ 
+
+ 
+public class Main {
+    
+	static int r,c,cnt,min;
+	static boolean check;
+	static char[][] map;
+	static Queue<node> q;
+	static Queue<node> water;
+	static int[] dx = {1,-1,0,0};
+	static int[] dy = {0,0,1,-1};
+	
+ 
+ 
+    public static void main(String[] args) throws Exception {
+       
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st= new StringTokenizer(br.readLine()," ");
+        
+        r = Integer.parseInt(st.nextToken());
+        c = Integer.parseInt(st.nextToken());
+        
+        q = new LinkedList<node>();
+        water = new LinkedList<node>();
+        
+        map = new char[r][c];
+        
+        for(int i = 0; i < r; i++) {
+        	String s = br.readLine();
+        	for(int j = 0; j < c; j++) {
+        		map[i][j] = s.charAt(j);
+        		if(map[i][j] == 'S') {
+        			q.add(new node(i,j));
+        		}
+        		if(map[i][j] == '*') {
+        			water.add(new node(i,j));
+        		}
+        	}
+        }
+        
+        cnt = 0;
+        bfs(map);
+        
+        if(check == true) {
+        	System.out.println(cnt);
+        }else {
+        	System.out.println("KAKTUS");
+        }
+        
+    
+    }
+    
+    public static void bfs(char[][] map) {
+    	
+    	check = true;
+    	
+    	while(!q.isEmpty()) {
+    		
+    		cnt++;
+    		
+    		int water_size = water.size();
+    		
+    		for(int t = 0; t < water_size; t++) {
+    			node cur_water = water.poll();
+    			
+    			for(int i = 0; i < 4; i++) {
+    				int nx = cur_water.x + dx[i];
+    				int ny = cur_water.y + dy[i];
+    				
+    				if(nx >= 0 && ny >= 0 && nx < r && ny < c) {
+    					if(map[nx][ny] == '.') {
+    						map[nx][ny] = '*';
+    						water.add(new node(nx,ny));
+    					}
+    				}
+    			}
+    		}
+    		
+    		
+    		int q_size =  q.size();
+    		
+    		for(int t = 0; t < q_size; t++) {
+    			node cur_q = q.poll();
+    			
+    			for(int i = 0; i < 4; i++) {
+    				int nx = cur_q.x + dx[i];
+    				int ny = cur_q.y + dy[i];
+    				
+    				if(nx >= 0 && ny >= 0 && nx < r && ny < c) {
+    					if(map[nx][ny] == 'D') {
+    						return;
+    					}
+    					if(map[nx][ny] == '.') {
+    						map[nx][ny] = 'S';
+    						q.add(new node(nx,ny));
+    					}
+    				}
+    			}
+    		}
+    		
+    	}
+    	
+    	check = false;
+		return;
+    	
+    }
+ 
+}
+
+class node{
+	int x, y;
+	
+	node(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+}
