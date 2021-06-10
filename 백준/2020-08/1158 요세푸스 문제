@@ -1,0 +1,55 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.*;
+
+public class Main {
+   
+    public static void main(String args[]) throws Exception  {
+      
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    
+    String input = br.readLine();
+    
+    String[] arr = input.split(" ");
+    int n = Integer.parseInt(arr[0]);
+    int k = Integer.parseInt(arr[1]);
+    
+    Queue<Integer> queue = new LinkedList<Integer>();
+    
+    for(int i = 1; i <= n; i++) {
+    	queue.offer(i);
+    }
+    
+    StringBuilder sb = new StringBuilder("<");
+    
+    while(!queue.isEmpty()) {
+    	
+    	for(int i =1; i <= k; i++) {
+    		
+    		if(i != k) {
+    			queue.offer(queue.poll());
+    		}
+    		else {
+    			sb.append(queue.poll());
+    			sb.append(", ");
+    		}
+    	}
+    }
+    	
+    String temp = sb.substring(0, sb.length() -2);
+    sb = new StringBuilder(temp);
+    sb.append(">");
+    bw.write(sb.toString());
+    
+    br.close();
+    bw.flush();
+    bw.close();
+    	
+       
+       
+    }
+}
