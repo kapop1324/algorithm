@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+
+
+
+
+
+public class Main {
+	
+	static long n;
+	static long k;
+	static long result;
+	
+	
+    public static void main(String args[]) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	
+    	n = Long.parseLong(br.readLine());
+    	k = Long.parseLong(br.readLine());
+    	
+    	bin();
+    	
+    	System.out.println(result);
+    	
+    	
+    	
+    	
+    }
+    
+    static void bin() {
+    	
+    	long left = 1;
+    	long right = k;
+    	
+    	
+    	while(left <= right) {
+    		long mid = (left + right)/2;
+    		long cnt = 0;
+    		for(int i = 1 ; i <=n; i++) {
+    			cnt += Math.min(mid/i, n);
+    		}
+    		
+    		if(cnt < k) {
+    			left = mid + 1;
+    		}else {
+    			result = mid;
+    			right = mid - 1;
+    		}
+    	}
+    	
+    	
+    }
+    
+}
+
+
