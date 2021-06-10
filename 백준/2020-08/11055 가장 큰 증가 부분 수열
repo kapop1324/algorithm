@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class Main {	
+    public static void main(String[] args) {
+    	
+    	
+    	         
+    	        Scanner sc = new Scanner(System.in);
+    	         
+    	        int n = sc.nextInt();
+    	       
+    	        int a[] = new int[n+1];
+    	        int d[] = new int[n+1];
+    	        int result = 0;
+    	      
+    	        for(int i = 0; i<n; i++) {
+    	        	a[i] = sc.nextInt();
+    	        	d[i]=a[i];
+    	        }
+    	        
+    	        for(int i = 0; i<n; i++) {
+    	        	for(int j=0; j<i;j++) {
+    	        		if(a[i]>a[j]) {
+    	        			d[i] = Math.max(d[j]+a[i], d[i]);
+    	        		}
+    	        	}
+    	        	result = Math.max(d[i], result);
+    	        }
+    	        
+    	       
+    	        
+    	      System.out.println(result);
+    	        
+    	        
+    	        
+
+    }
+    
+  
+}
