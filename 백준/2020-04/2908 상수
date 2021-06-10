@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+	
+		Scanner sc = new Scanner(System.in);
+		
+		int n1 = sc.nextInt();
+		int n2 = sc.nextInt();
+			
+		sc.close();
+		
+		String ns1 = Integer.toString(n1);
+		String n1_1 = ns1.substring(2)+ns1.substring(1,2)+ns1.substring(0,1);
+		n1 = Integer.parseInt(n1_1);
+		
+		String ns2 = Integer.toString(n2);
+		String n2_1 = ns2.substring(2)+ns2.substring(1,2)+ns2.substring(0,1);
+		n2 = Integer.parseInt(n2_1);
+			
+		if(n1>n2) {
+			System.out.println(n1);
+		}
+		else if(n1<n2) {
+			System.out.println(n2);
+		}
+			
+		
+	}
+		
+		
+}
+	
+
