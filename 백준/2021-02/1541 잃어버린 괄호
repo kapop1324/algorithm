@@ -1,0 +1,46 @@
+import java.util.*;
+
+import java.io.*;
+
+		
+		public class Main {
+			
+		
+			
+			public static void main(String[] args) throws IOException {
+				
+				Scanner sc = new Scanner(System.in);
+				int minus = -1;
+				String a = sc.nextLine();
+		        String[] arr = a.split("\\-");
+		        
+		        for(int i = 0; i < arr.length; i++) {
+		        	
+		        	int sum = 0;
+		        	
+		        	String[] arr2 = arr[i].split("\\+");
+		        	
+		        	for(int j = 0; j < arr2.length; j++) {
+		        		sum += Integer.parseInt(arr2[j]);
+		        		
+		        		
+		        	}
+		        	
+		        	if(i == 0) {
+	        			minus = sum;
+	        		}
+		        	else {
+		        		minus-=sum;
+		        	}
+		        	
+		        }
+		        
+		        System.out.println(minus);
+
+		  
+			}
+		 
+		   
+		}
+	
+
