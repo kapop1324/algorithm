@@ -1,0 +1,137 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
+ 
+public class Main {
+ 
+    static int[][] map;
+    static int[][] smap;
+    static int n,m,k =0;
+    static int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
+    static int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+       
+       
+         n = Integer.parseInt(st.nextToken());
+         m = Integer.parseInt(st.nextToken());
+         k = Integer.parseInt(st.nextToken());
+         LinkedList<tree> treelist = new LinkedList<>();
+         
+        map = new int[n][n];
+        smap = new int[n][n];
+        
+        for(int i=0; i<n; i++){
+           st = new StringTokenizer(br.readLine()," ");
+            for(int j=0; j<n; j++){
+            	smap[i][j] = Integer.parseInt(st.nextToken());
+                map[i][j] = 5; 
+            }
+        }
+         
+     
+        for(int i=0; i<m; i++){
+            st = new StringTokenizer(br.readLine(), " ");
+            int x = Integer.parseInt(st.nextToken())-1;
+            int y = Integer.parseInt(st.nextToken())-1;
+            int year = Integer.parseInt(st.nextToken());
+            treelist.add(new tree(x, y, year, 1));
+ 
+        }
+        
+        k *= 4;
+        
+        while(k > 0) {
+        	
+        	LinkedList<tree> newtreeList = new LinkedList<>();
+        	
+        	if(k%4 == 0) {
+        		 for(tree t : treelist){
+        			 
+        			 int x = t.x;
+        			 int y = t.y;
+        			 int year = t.year;
+        			 int life = t.life;
+        			 
+                     if(map[x][y] >= year){
+                         map[x][y] -= year;
+                         t.year++;
+                     }else{
+                         t.life = 0;
+                     }
+                 }
+        	}
+        	else if(k % 4 == 3) {
+        		 for(Iterator<tree> it = treelist.iterator(); it.hasNext();){
+                	 tree t= it.next();
+                	 
+                	 int x = t.x;
+                	 int y = t.y;
+                	 int year = t.year;
+                	 int life = t.life;
+                	 
+                     if(life == 0){
+                         map[x][y] += year / 2;
+                         it.remove();;
+                     }
+                 }
+        	}
+        	else if(k%4 == 2) {
+        		 for(tree t : treelist){
+        			 
+        			 int x= t.x;
+        			 int y = t.y;
+        			 int year = t.year;
+        			 int life = t.life;
+        			 
+                     if(year % 5 != 0) continue;
+                     for(int j=0; j<8; j++){
+                         int nx = x + dx[j];
+                         int ny = y + dy[j];
+                         
+                         if(nx  < 0 || ny < 0 || nx >= n || ny >= n) {
+                         	continue;
+                         }
+                         
+                        
+                          newtreeList.add(new tree(nx, ny, 1, 1));
+                         
+                     }
+                 }
+        		 treelist.addAll(0, newtreeList);
+        	}
+            
+        	
+            else if(k %4 == 1) {
+            	 for(int i=0; i<n; i++){
+                     for(int j=0; j<n; j++){
+                         map[i][j] += smap[i][j];
+                     }
+                 }
+        	 }
+            k--;
+        }
+        System.out.println(treelist.size());
+    }   
+       
+     
+    static class tree{
+        int x;
+        int y;
+        int year;
+        int life;
+        public tree(int x, int y, int year, int life) {
+       
+            this.x = x;
+            this.y = y;
+            this.year = year;
+            this.life = life;
+        }
+         
+    }
+ 
+}
