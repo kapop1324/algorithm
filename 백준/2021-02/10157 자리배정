@@ -1,0 +1,52 @@
+import java.util.*;
+import java.util.stream.Collector.Characteristics;
+
+
+
+import java.io.*;
+
+public class Main {
+		    
+	public static void main(String[] args) throws IOException {
+		       
+		    	Scanner sc = new Scanner(System.in);
+		    	
+		    	int c = sc.nextInt();
+		    	int r = sc.nextInt();
+		    	int f = sc.nextInt();
+		    	int cnt = 1;
+		    	int d = 0;
+		    	int[] dx = {-1,0,1,0};
+		    	int[] dy = {0,1,0,-1};
+		    	
+		    	int[][] result = new int[r][c];
+		    	int x = r-1;
+		    	int y = 0;
+		    	
+		    	if(f > r*c) {
+		    		System.out.println(0);
+		    		System.exit(0);
+		    	}
+		    	
+		    	while(cnt != f) {
+		    		result[x][y] = cnt;
+		    		
+		    		if(x+dx[d] >= r || x+dx[d] < 0 || y+dy[d] >= c || y+dy[d] < 0 ||
+	    					result[x+dx[d]][y+dy[d]] != 0) {
+	    				d = (d+1)%4;
+	    			}
+	    			
+	    			x = x+dx[d];
+	    			y = y+dy[d];
+	    			
+	    			cnt++;
+		    	}
+		    	
+		    	
+		    
+				System.out.println((y+1)+" "+(r-x));
+		    	
+		   }
+	
+
+}
