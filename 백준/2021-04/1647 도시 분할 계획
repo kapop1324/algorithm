@@ -1,0 +1,66 @@
+import java.util.*;
+import java.io.*;
+ 
+
+ 
+public class Main {
+	static class Edge implements Comparable<Edge>{ 
+		int node, dis;
+		public Edge(int node, int dis) {
+			this.node = node; this.dis = dis;
+			} 
+		@Override public int compareTo(Edge o) {
+			return Integer.compare(this.dis, o.dis);
+			} 
+		}
+	static int N,M,DISTANCE,cnt;
+	static ArrayList<ArrayList<Edge>> graph;
+	static PriorityQueue<Edge> pq;
+	static boolean visit[];
+	public static void main(String[] args) throws Exception { 
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		graph = new ArrayList<>();
+		pq = new PriorityQueue<>();
+		visit = new boolean[N];
+		for (int i = 0; i < N; i++) { 
+			graph.add(new ArrayList<>());
+			}
+		int temp = Integer.MAX_VALUE;
+		int start = 0;
+		for (int i = 0; i < M; i++) {
+			st = new StringTokenizer(br.readLine()); 
+			int A = Integer.parseInt(st.nextToken())-1;
+			int B = Integer.parseInt(st.nextToken())-1;
+			int dis = Integer.parseInt(st.nextToken());
+			graph.get(A).add(new Edge(B,dis));
+			graph.get(B).add(new Edge(A,dis));
+			if(temp > dis) { 
+				temp = dis; 
+				start = A; 
+				} 
+			} 
+		pq.add(new Edge(start,0)); 
+		int max = Integer.MIN_VALUE; 
+		while(!pq.isEmpty()) { 
+			Edge edge = pq.poll();
+			if(visit[edge.node]) continue; 
+			visit[edge.node] = true;
+			max = (max < edge.dis)? edge.dis : max; 
+			DISTANCE += edge.dis;
+			for (Edge next : graph.get(edge.node)) { 
+				if(!visit[next.node]) pq.add(next); 
+				} 
+				if(++cnt == N) break;
+			}
+		System.out.println(DISTANCE-max); 
+		
+	}
+
+
+ 
+}
+
