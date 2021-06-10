@@ -1,0 +1,116 @@
+import java.io.*;
+import java.util.*;
+
+
+
+
+
+
+public class Main {
+	
+	static int n;
+	static int[] arr;
+	static boolean[] arr2;
+	static boolean[][] map;
+	static boolean[] check;
+	static int result;
+	static int min = Integer.MAX_VALUE;
+	
+	
+    public static void main(String args[]) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st;
+    	
+    	n = Integer.parseInt(br.readLine());
+    	
+    	arr = new int[n];
+    	arr2 = new boolean[n];
+    	check = new boolean[n];
+    	map = new boolean[n][n];
+    	
+    	st = new StringTokenizer(br.readLine()," ");
+    	
+    	for(int i = 0; i < n; i++) {
+    		arr[i] = Integer.parseInt(st.nextToken());
+    	}
+    	
+    	for(int i = 0 ; i < n ; i++) {
+    		st = new StringTokenizer(br.readLine()," ");
+    		int length = Integer.parseInt(st.nextToken());
+    		for(int j = 0; j < length; j++) {
+    			int a = Integer.parseInt(st.nextToken()) - 1;
+    			map[i][a] = true;
+    			map[a][i] = true;
+    		}
+    	}
+    	
+    	dfs1(0);
+    	
+    	if(min == Integer.MAX_VALUE) {
+    		System.out.println(-1);
+    	}else {
+    		System.out.println(min);
+    	}
+    	
+    }
+    
+    static int sum;
+  
+    public static void dfs1(int idx) {
+    	
+    	if(idx == n) {
+    		check = new boolean[n];
+    		int area1 = 0;
+    		for(int i = 0; i < n; i++) {
+    			if(arr2[i] == true && check[i] == false) {
+    				sum = 0;
+    				dfs2(i);
+    				area1 = sum;
+    				break;
+    			}
+    		}
+    		
+    		int area2 = 0;
+    		for(int i = 0; i < n; i++) {
+    			if(arr2[i] == false && check[i] == false) {
+    				sum = 0;
+    				dfs2(i);
+    				area2 = sum;
+    				break;
+    			}
+    		}
+    		
+    		for(int i = 0; i < n; i++) {
+    			if(check[i] == false) {
+    				return;
+    			}
+    		}
+    		
+    		
+    		min = Math.min(min, Math.abs(area1-area2));
+    		
+    		return;
+    	}
+    	
+    	arr2[idx] = true;
+    	dfs1(idx+1);
+    	arr2[idx] = false;
+    	dfs1(idx+1);
+    	
+    } 
+    
+    public static void dfs2(int idx) {
+    	
+    	check[idx] = true;
+    	sum = sum + arr[idx];
+    	for(int i = 0; i<n; i++) {
+    		if(check[i] == false && arr2[i] == arr2[idx] && map[i][idx] == true) {
+    			dfs2(i);
+    		}
+    	}
+    	
+    }
+}
+
+
