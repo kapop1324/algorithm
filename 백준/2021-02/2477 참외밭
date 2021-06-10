@@ -1,0 +1,55 @@
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+ 
+public class Main {
+  
+ 
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+ 
+        int n = sc.nextInt();
+        int big_x = 0;
+        int big_y = 0;
+        int small_x = 100000;
+        int small_y = 100000;
+        
+        int[] arr = new int[6];
+        
+        for(int i = 0; i < 6; i++) {
+        	sc.nextInt();
+        	
+        	arr[i] = sc.nextInt();
+        	
+        }
+        
+       for(int i = 0; i < 6 ;i++) {
+    	   if(i%2 == 0) {
+    		   big_y = Math.max(big_y, arr[i]);
+    	   }
+    	   else {
+    		   big_x = Math.max(big_x, arr[i]);
+    	   }
+       }
+       
+      
+      
+       for(int i = 0; i < 6; i++) {
+    	  if(i%2 == 0) {
+    		  if(big_x == arr[(i+1)%6] + arr[(i+5)%6]) {
+    			 small_y = arr[i];
+    		  }
+    	  }
+    	  else {
+    		  if(big_y == arr[(i+1)%6] + arr[(i+5)%6]) {
+    			small_x = arr[i];
+    		  }
+    	  }
+       }
+       
+       int result = n *(big_x * big_y - small_x * small_y);
+        System.out.println(result);
+        
+    }
+ 
+}
