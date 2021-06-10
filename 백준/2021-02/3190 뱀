@@ -1,0 +1,329 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	public static class GET{
+		int time;
+		char direction;
+		public GET(int time, char direction) {
+			this.time = time;
+			this.direction = direction;
+		}
+	}
+	
+	public static class POS{
+		int y;
+		int x;
+		public POS(int y, int x) {
+			this.y = y;
+			this.x = x;
+		}
+	}
+	
+	public static int N, K, L, max_time, k, change_time, now_y, now_x, result_time;
+	public static char change_dir, now_dir;
+	public static int map[][];
+	public static GET gets[];
+	public static boolean check;
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		N = Integer.parseInt(br.readLine());
+		
+		map = new int[N][N];
+		
+		map[0][0] = 2;
+		
+		K = Integer.parseInt(br.readLine());
+		
+		for(int i=0; i<K; i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			
+			int row = Integer.parseInt(st.nextToken());
+			int column = Integer.parseInt(st.nextToken());
+			
+			map[row-1][column-1] = 1;
+		}
+		
+		L = Integer.parseInt(br.readLine());
+		
+		gets = new GET[L];
+		
+		for(int i=0; i<L; i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			
+			int time = Integer.parseInt(st.nextToken());
+			char direction = (st.nextToken()).charAt(0);
+			
+			gets[i] = new GET(time, direction);
+			
+			max_time = time;
+		}
+		
+		now_dir = 'r';
+		change_dir = gets[k].direction;
+		change_time = gets[k++].time;
+		
+		Deque<POS> deque = new LinkedList<>();
+		
+		deque.add(new POS(0, 0));
+		
+		for(int i=1; i<=max_time+N; i++) {
+			
+			Deque<POS> deque2 = new LinkedList<>();
+			
+			for(int o=0; o<N; o++) {
+				for(int u=0; u<N; u++) {
+					if(map[o][u] == 2) {
+						map[o][u] = 0;
+					}
+				}
+			}
+			
+			if(now_dir == 'r') {
+				if(now_x + 1 >= N) {
+					result_time = i;
+					break;
+				}
+				else {
+					int next = now_x + 1;
+					
+					if(deque.getFirst().y == deque.getLast().y && deque.getFirst().x == deque.getLast().x + 1 && deque.size() != 1) {
+						result_time = i;
+						break;
+					}
+					
+					if(map[now_y][next] == 1) {
+						deque.add(new POS(now_y, next));
+						now_x = next;
+						while(!deque.isEmpty()) {
+							POS p = deque.poll();
+							map[p.y][p.x] = 2;
+							
+							deque2.add(new POS(p.y, p.x));
+						}
+					}
+					else if(map[now_y][next] == 2) {
+						result_time = i;
+						break;
+					}
+					else if(map[now_y][next] == 0) {
+						deque.add(new POS(now_y, next));
+						deque.poll();
+						now_x = next;
+						
+						while(!deque.isEmpty()) {
+							POS p = deque.poll();
+							
+							if(map[p.y][p.x] == 2) {
+								check = true;
+								break;
+							}
+							
+							map[p.y][p.x] = 2;
+							
+							deque2.add(new POS(p.y, p.x));
+						}
+					}
+				}
+			}
+			else if(now_dir == 'l') {
+				if(now_x - 1 < 0) {
+					result_time = i;
+					break;
+				}
+				else {
+					int next = now_x - 1;
+
+					if(deque.getFirst().y == deque.getLast().y && deque.getFirst().x == deque.getLast().x - 1 && deque.size() != 1) {
+						result_time = i;
+						break;
+					}
+					
+					if(map[now_y][next] == 1) {
+						deque.add(new POS(now_y, next));
+						now_x = next;
+						while(!deque.isEmpty()) {
+							POS p = deque.poll();
+							map[p.y][p.x] = 2;
+							
+							deque2.add(new POS(p.y, p.x));
+						}
+					}
+					else if(map[now_y][next] == 2) {
+						result_time = i;
+						break;
+					}
+					else if(map[now_y][next] == 0) {
+						deque.add(new POS(now_y, next));
+						deque.poll();
+						now_x = next;
+						
+						while(!deque.isEmpty()) {
+							POS p = deque.poll();
+							
+							if(map[p.y][p.x] == 2) {
+								check = true;
+								break;
+							}
+							
+							map[p.y][p.x] = 2;
+							
+							deque2.add(new POS(p.y, p.x));
+						}
+					}
+				}
+			}
+			else if(now_dir == 'd') {
+				if(now_y + 1 >= N) {
+					result_time = i;
+					break;
+				}
+				else {
+					int next = now_y + 1;
+					
+					if(deque.getFirst().y == deque.getLast().y + 1 && deque.getFirst().x == deque.getLast().x && deque.size() != 1) {
+						result_time = i;
+						break;
+					}
+					
+					if(map[next][now_x] == 1) {
+						deque.add(new POS(next, now_x));
+						now_y = next;
+						while(!deque.isEmpty()) {
+							POS p = deque.poll();
+							map[p.y][p.x] = 2;
+							
+							deque2.add(new POS(p.y, p.x));
+						}
+					}
+					else if(map[next][now_x] == 2) {
+						result_time = i;
+						break;
+					}
+					else if(map[next][now_x] == 0) {
+						deque.add(new POS(next, now_x));
+						deque.poll();
+						now_y = next;
+						
+						while(!deque.isEmpty()) {
+							POS p = deque.poll();
+							
+							if(map[p.y][p.x] == 2) {
+								check = true;
+								break;
+							}
+							
+							map[p.y][p.x] = 2;
+							
+							deque2.add(new POS(p.y, p.x));
+						}
+					}
+				}
+			}
+			else if(now_dir == 'u') {
+				if(now_y - 1 < 0) {
+					result_time = i;
+					break;
+				}
+				else {
+					int next = now_y - 1;
+					
+					if(deque.getFirst().y == deque.getLast().y - 1 && deque.getFirst().x == deque.getLast().x && deque.size() != 1) {
+						result_time = i;
+						break;
+					}
+					
+					if(map[next][now_x] == 1) {
+						deque.add(new POS(next, now_x));
+						now_y = next;
+						while(!deque.isEmpty()) {
+							POS p = deque.poll();
+							map[p.y][p.x] = 2;
+							
+							deque2.add(new POS(p.y, p.x));
+						}
+					}
+					else if(map[next][now_x] == 2) {
+						result_time = i;
+						break;
+					}
+					else if(map[next][now_x] == 0) {
+						deque.add(new POS(next, now_x));
+						deque.poll();
+						now_y = next;
+						
+						while(!deque.isEmpty()) {
+							POS p = deque.poll();
+							
+							if(map[p.y][p.x] == 2) {
+								check = true;
+								break;
+							}
+							
+							map[p.y][p.x] = 2;
+							
+							deque2.add(new POS(p.y, p.x));
+						}
+					}
+				}
+			}
+			
+			while(!deque2.isEmpty()) {
+				POS p = deque2.poll();
+				
+				deque.add(new POS(p.y, p.x));
+			}
+			
+			if(i == change_time) {
+				
+				if(change_dir == 'D') {
+					if(now_dir == 'r') {
+						now_dir = 'd';
+					}
+					else if(now_dir == 'l') {
+						now_dir = 'u';
+					}
+					else if(now_dir == 'u') {
+						now_dir = 'r';
+					}
+					else if(now_dir == 'd') {
+						now_dir = 'l';
+					}
+				}
+				if(change_dir == 'L') {
+					if(now_dir == 'r') {
+						now_dir = 'u';
+					}
+					else if(now_dir == 'l') {
+						now_dir = 'd';
+					}
+					else if(now_dir == 'u') {
+						now_dir = 'l';
+					}
+					else if(now_dir == 'd') {
+						now_dir = 'r';
+					}
+				}
+				
+				change_dir = gets[k].direction;
+				change_time = gets[k].time;
+				
+				if(k != L - 1) {
+					k++;
+				}
+				
+			}
+			
+			if(check == true) {
+				result_time = i;
+				break;
+			}
+		
+		}
+		
+		System.out.println(result_time);
+	}
+
+}
