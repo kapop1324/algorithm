@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class Main {	
+    public static void main(String[] args) {
+    	
+    	
+    	         
+    	        Scanner sc = new Scanner(System.in);
+    	        
+    	        
+    	        int k = sc.nextInt();
+    	        int n;
+    	        
+    	    
+    	       
+    	        
+    	        long d[] = new long[100];
+    	        
+    	        d[0] = 1;
+    	        d[1] = 1;
+    	        d[2] = 1;
+    	        d[3] = 2;
+    	        d[4] = 2;
+    	        
+    	        for(int i=5; i<100; i++) {
+    	        	
+    	        	d[i] = d[i-1] + d[i-5];
+    	        }
+    	        
+    	        for(int t =0; t<k; t++) {
+   	        	 n= sc.nextInt();
+   	        	 System.out.println(d[n-1]);
+    	        }
+     	       
+    	        sc.close();
+    	       
+    	             
+    	     
+    	      
+   	        }
+    	        
+    			
+    	        
+    	        	  
+    	        
+}
