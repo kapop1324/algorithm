@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+
+public class Main {
+	
+	static boolean[] check;
+	static ArrayList<Integer>[] list;
+	static int node, edge, count;
+	
+   
+    public static void main(String args[]) {
+   
+    	Scanner sc = new Scanner(System.in);
+		
+    	node = sc.nextInt();
+    	edge = sc.nextInt();
+    	
+    	list = new ArrayList[node+1];
+    	check = new boolean[node+1];
+    	
+    	for(int i = 1; i <= node; i++) {
+    		list[i] = new ArrayList<>();
+    	}
+	
+    	for(int i = 1; i <= edge; i++) {
+    		int n = sc.nextInt();
+    		int e = sc.nextInt();
+    		
+    		list[n].add(e);
+    		list[e].add(n);
+    	}
+    	for(int i = 1; i <= node; i++) {
+    		if(!check[i]) {
+    			count++;
+    			dfs(i);
+    		}
+    	}
+		
+		 System.out.println(count);
+		
+    }
+  
+    public static void dfs(int x) {
+    	if(check[x]) {
+    		return;
+    	}
+    	check[x] = true;
+    	for(int val: list[x]) {
+    		if(!check[val]) {
+    			dfs(val);
+    		}
+    	}
+    	
+    }
+
+    
+}
