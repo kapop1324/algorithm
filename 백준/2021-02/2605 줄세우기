@@ -1,0 +1,52 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+ 
+public class Main {
+	
+
+	
+    public static void main(String[] args) throws IOException {
+    		
+    	Scanner sc = new Scanner(System.in);
+    	
+    	int n = sc.nextInt();
+    	int[] arr = new int[n];
+    	int[] result = new int[n];
+    	for(int i = 0; i < n; i++) {
+    		arr[i] = sc.nextInt();
+    	}
+    	int temp = 0;
+    	for(int i = 0; i < n; i++) {
+    		
+    		result[i] = i+1;
+    		
+    		
+    		
+    			for(int j = 0; j < arr[i]; j++) {
+    				temp = result[i-j];
+        			result[i-j] = result[i-j-1];
+        			result[i-j-1] = temp;
+        			
+        		}
+    			
+
+    		
+    		
+    	}
+    	
+    	for(int i = 0; i < n ;i++) {
+    		System.out.print(result[i]+" ");
+    	}
+    	
+    	
+    }
+    
+   
+   
+ 
+}
