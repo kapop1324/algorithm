@@ -1,0 +1,110 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {    
+	
+	
+	static ArrayList<Integer>[] graph;
+	static int n;
+	static boolean visit[];
+	static boolean cycle = false;
+	
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        
+        int tc = 1;
+        
+        while(true) {
+        	st = new StringTokenizer(br.readLine()," ");
+        	n = Integer.parseInt(st.nextToken());
+        	int m = Integer.parseInt(st.nextToken());
+        	
+        	if(n == 0 && m == 0) {
+        		break;
+        	}
+        	
+        	graph = new ArrayList[501];
+        
+        	visit = new boolean[501];
+        	
+        	 for(int i = 0; i <=500; i++) {
+               	
+         		 graph[i] = new ArrayList<>();
+         	 
+        	 }
+        	 
+        	 for(int i = 0; i < m; i++) {
+        		 
+        		st = new StringTokenizer(br.readLine()," ");
+             	int node = Integer.parseInt(st.nextToken());
+             	int edge = Integer.parseInt(st.nextToken());
+        		 
+        		graph[node].add(edge);
+        		graph[edge].add(node);
+ 
+        	 }
+        	 
+        	 int result = 0;
+        	 
+        	 for(int i = 1; i <= n; i++) {
+        		 if(visit[i] == false) {
+        			 cycle = false;
+        			 dfs(0,i);
+        			 if(cycle == false) {
+        				 result++;
+        			 }
+        		 }
+        	}
+        	if(result == 0) {
+        		System.out.println("Case "+tc+": No trees.");
+        	}else if(result == 1){
+            		System.out.println("Case "+tc+": There is one tree.");
+        	}else {
+        		System.out.println("Case "+tc+": A forest of "+result+" trees.");
+        	}
+        	tc++;
+        }
+        
+       
+        
+        
+      
+    }
+    
+	public static void dfs(int pre,int now) {
+	  
+	 visit[now] = true;
+	 
+	 int size = graph[now].size();
+	 
+	 for(int i = 0; i<size; i++) {
+		 
+		 int next = graph[now].get(i);
+		
+		 if(next != pre) {
+			 if(visit[next] == false) {
+				 dfs(now,next);
+			 }else {
+				 cycle= true;
+			 }
+		 }
+		 
+		
+		
+		 
+		 
+		 
+	 }
+	  
+	
+	 
+	}
+	
+	
+}
+
+
+
