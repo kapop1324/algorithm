@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+public class Main {
+    static int[] sw;    
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt();
+        sw = new int[N];
+        sc.nextLine();
+        String[] arr = sc.nextLine().split(" ");
+
+        for(int i=0; i<N; i++) {
+            sw[i] = Integer.parseInt(arr[i]);
+        }
+
+        int M = sc.nextInt();
+        sc.nextLine();
+        for(int i=0; i<M; i++) {
+            String[] student = sc.nextLine().split(" ");
+
+            if(Integer.parseInt(student[0])==1)
+                boy(Integer.parseInt(student[1]));
+            else
+                girl(Integer.parseInt(student[1]));
+        }
+
+        for(int i=0; i<N; i++) {
+            if(i!=0 && i%20==0) {
+                System.out.println();
+            }
+            System.out.print(sw[i]+" ");
+        }
+    }
+
+    public static void boy(int num) {
+
+        for(int i=1; i*num<=sw.length; i++) {
+            if(sw[i*num-1]==1)
+                sw[i*num-1]=0;
+            else
+                sw[i*num-1]=1;
+        }
+    }
+
+    public static void girl(int num) {
+        int upper = num-1;
+        int lower = num-1;
+
+        while(true){
+            upper++;
+            lower--;
+            if(upper>=sw.length || lower<0 || sw[lower]!=sw[upper]) {
+                upper--;
+                lower++;
+                break;
+            }
+        }
+
+        for(int i=lower; i<=upper; i++) {
+            if(sw[i]==1)
+                sw[i]=0;
+            else
+                sw[i]=1;
+        }
+    }
+}
