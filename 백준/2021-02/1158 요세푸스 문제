@@ -1,0 +1,50 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Stack;
+import java.util.StringTokenizer;
+
+
+
+class Main {
+
+	public static void main(String[] args) throws Exception {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		LinkedList<Integer> list = new LinkedList<>();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		int n = sc.nextInt();
+		int k = sc.nextInt();
+		
+		for(int i = 1; i<= n; i++) {
+			list.offer(i);
+		}
+		
+		sb.append("<");
+		
+		while(!list.isEmpty()) {
+			for(int i = 1; i<=k; i++) {
+				if(i==k) {
+					sb.append(list.poll()+", ");
+				}
+				else {
+					list.offer(list.poll());
+				}
+			}
+		}
+		sb.setLength(sb.length()-2);
+		
+		sb.append(">");
+		System.out.println(sb);
+		
+	}
+	
+
+
+}
