@@ -1,0 +1,90 @@
+import java.util.*;
+import java.io.*;
+ 
+
+ 
+public class Main {
+    
+	static int[] parent;
+	static ArrayList<node> list = new ArrayList<>();
+ 
+ 
+    public static void main(String[] args) throws Exception {
+       
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        
+        char[] univ = new char[n+1];
+        
+        st = new StringTokenizer(br.readLine()," ");
+        for(int i = 1; i <= n; i++) {
+        	univ[i] = st.nextToken().charAt(0);
+        }
+      
+        for(int i = 0; i < m; i++) {
+        	st = new StringTokenizer(br.readLine()," ");
+        	int u = Integer.parseInt(st.nextToken());
+        	int d = Integer.parseInt(st.nextToken());
+        	int v = Integer.parseInt(st.nextToken());
+        	
+        	list.add(new node(u,d,v));
+        }
+        
+        parent = new int[n+1];
+        
+        for(int i = 1; i <= n; i++) {
+        	parent[i] = i;
+        }
+        
+        Collections.sort(list,(o1,o2) -> o1.dist - o2.dist);
+        
+        int cnt = 0;
+        int ans = 0;
+        
+        for(int i = 0; i < list.size(); i++) {
+        	node a = list.get(i);
+        	
+        	if(find(a.start) != find(a.end)) {
+        		if(univ[a.start] != univ[a.end]) {
+        			cnt++;
+        			ans += a.dist;
+        			union(a.start,a.end);
+        		}
+        	}
+        }
+        
+        System.out.println(cnt != n-1 ? -1 : ans);
+    
+    }
+    
+    public static int find(int a) {
+    	if(a == parent[a]) {
+    		return a;
+    	}
+    	return parent[a] = find(parent[a]);
+    }
+    
+    public static void union(int a, int b) {
+    	int aroot = find(a);
+    	int broot = find(b);
+    	
+    	if(aroot != broot) {
+    		parent[broot] = aroot;
+    	}
+    }
+    
+ 
+}
+
+class node{
+	int start, end, dist;
+	
+	node(int start, int end, int dist){
+		this.start = start;
+		this.end = end;
+		this.dist = dist;
+	}
+}
