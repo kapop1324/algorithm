@@ -1,0 +1,60 @@
+import java.io.*;
+import java.util.*;
+ 
+public class Main {
+	
+	static int n;
+	static char[][] arr;
+	static int result;
+	static int[] sel;
+	static int[] dx = {0,0,-1,1};
+	static int[] dy = {1,-1,0,0};
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+	       
+		  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		  StringTokenizer st = new StringTokenizer(br.readLine()," ");
+		  int n = Integer.parseInt(st.nextToken());
+		  int m = Integer.parseInt(st.nextToken());	
+		  int cnt = 1;
+		  
+		  while(n != m) {
+			  
+			  if(n > m) {
+				  cnt = -1;
+				  break;
+			  }
+			  
+			  String s = Integer.toString(m);
+			  if(!s.substring(s.length()-1,s.length()).equals("1") && m % 2 != 0) {
+				  cnt = -1;
+				  break;
+			  }
+			  
+			  if(m % 2 == 0) {
+				  m = m/2;
+				  cnt++;
+			  }else {
+				  s = s.substring(0, s.length()-1);
+				  m = Integer.parseInt(s);
+				  cnt++;
+			  }
+			  
+			 
+			  
+		  }
+		
+		  System.out.println(cnt);
+		  
+	}
+	
+
+	    	
+	 
+	 
+	
+
+
+
+}
+
