@@ -1,0 +1,74 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+ 
+public class Main {
+  
+	
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine()," ");
+    	int n = Integer.parseInt(st.nextToken());
+    	int m = Integer.parseInt(st.nextToken());
+    	
+    	char[][] arr = new char[n][m];
+    	
+    	for(int i = 0; i < n; i++) {
+    		String s = br.readLine();
+    		for(int j = 0; j < m; j++) {
+    			arr[i][j] = s.charAt(j);
+    		}
+    	}
+    	
+    	int min = Integer.MAX_VALUE;
+    	boolean x = false;
+    	
+    	
+    	for(int i = 0; i < m; i++) {
+    		
+    		int cnt = 0;
+    		
+    		for(int j = 0; j < n; j++) {
+    			if(arr[j][i] == 'X') {
+    				cnt = 0;
+    				x = true;
+    			}
+    			else if(x == true && arr[j][i] == '.') {
+    				cnt++;
+    			}
+    			else if(x == true && arr[j][i] == '#') {
+    				x = false;
+    				min = Math.min(min, cnt);
+    			}
+    		}
+    	}
+    	
+    	for(int i = n-1; i >= 0; i--) {
+    		for(int j =0; j < m; j++) {
+    			if(arr[i][j] == 'X') {
+    				arr[i][j] = '.';
+    				arr[i+min][j] = 'X';
+    			}
+    		}
+    	}
+    	
+    	
+    	StringBuilder sb = new StringBuilder();
+    	
+    	for(int i = 0; i < n; i++) {
+    		
+    		sb.append(arr[i]).append('\n');
+    	}
+    	
+    	System.out.println(sb.toString());
+    	
+    }
+    
+   
+ 
+}
