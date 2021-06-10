@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int i;
+		double  max=0;
+		double sum=0;
+		double avg;
+		double score[] = new double[n];
+		for(i=0;i<n;i++) {
+			score[i] = sc.nextInt();
+			
+			
+			if(max < score[i]) {
+				max =  score[i];
+			}
+			
+		}
+		sc.close();
+		for(i=0;i<n;i++) {
+			
+			
+			
+				score[i] = score[i]/max*100;
+			
+			
+			sum = sum + score[i];
+			
+		}
+		
+		
+		
+		avg = sum/n;
+		
+		
+		System.out.println(avg);
+		
+		
+		
+		
+	}
+}
