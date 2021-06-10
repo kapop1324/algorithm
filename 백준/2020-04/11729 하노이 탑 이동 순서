@@ -1,0 +1,43 @@
+import java.util.Scanner;
+public class Main {
+	public static StringBuilder sb = new StringBuilder();
+	public static int cnt = 0;
+	public static void main(String[] args)   {
+		
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		
+		sc.close();
+		hanoi(n,1,2,3);
+		sb.insert(0, cnt+"\n");
+		System.out.print(sb);
+		
+
+	}
+	
+
+
+	public static void hanoi(int n, int a, int b, int c) {
+		
+		if(n == 1) {
+			sb.append(a + " " + c + "\n");
+			cnt++;
+		}else {
+			
+			hanoi(n-1,a,c,b);
+			sb.append(a+" "+c+"\n");
+			cnt++;
+			
+			hanoi(n-1,b,a,c);
+		}
+		
+		
+		
+	}
+	
+	
+		
+		
+	
+		
+}
