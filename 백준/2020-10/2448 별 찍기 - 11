@@ -1,0 +1,59 @@
+import java.io.*;
+import java.util.*;
+
+
+
+public class Main {
+	
+	static char[][] arr;
+	static StringBuilder sb = new StringBuilder();
+	
+    public static void main(String args[]) throws NumberFormatException, IOException {
+    	
+    	Scanner sc = new Scanner(System.in);
+    	
+    	int n = sc.nextInt();
+    	
+    	arr = new char[n][n*2-1];
+    	
+    	for(int i = 0; i<n; i++) {
+    		Arrays.fill(arr[i],' ');
+    	}
+    	
+    	star(0,n-1,n);
+    	
+    	for(int i = 0; i<n; i++) {
+    		for(int j =0; j<n*2-1;j++) {
+    			sb.append(arr[i][j]);    		
+    			}
+    		sb.append("\n");
+    	}
+    	
+    	System.out.println(sb);
+    	
+    }
+   
+    public static void star(int row, int col, int n) {
+    	
+    	if(n==3) {
+    		arr[row][col] ='*';
+    		arr[row+1][col+1] = arr[row+1][col-1] = '*';
+    		arr[row+2][col-2] = arr[row+2][col-1] = arr[row+2][col]=  arr[row+2][col+1]=  arr[row+2][col+2]='*';
+    	}
+    	else {
+    		int cut = n/2;
+    		
+    		star(row,col,cut);
+    		star(row+(n/2),col+(n/2),cut);
+    		star(row+(n/2),col-(n/2),cut);
+    	}
+    	
+    
+    }
+ 
+  
+}
+
+
+
+
