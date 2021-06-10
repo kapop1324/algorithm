@@ -1,0 +1,56 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+    static int n;
+    static int max = Integer.MIN_VALUE;
+    static ArrayList<Integer>num = new ArrayList<>();
+    static ArrayList<Character> op = new ArrayList<>();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+         n = Integer.parseInt(br.readLine());
+         
+         String s = br.readLine();
+         for(int i=0; i<n; i++) {
+             if(i%2==0) {
+                 num.add(s.charAt(i)-'0');
+             }
+             else {
+                 op.add(s.charAt(i));
+             }
+         }
+         int first = num.get(0);
+         dfs(0,first);
+         System.out.println(max);
+    }
+    public static void dfs(int idx, int sum) {
+        if(idx>=op.size()) {
+            max = Math.max(max, sum);
+            return;
+        }
+     
+        int a = cal(idx, sum, num.get(idx+1));
+        dfs(idx+1, a);
+       
+        if(idx+1 < op.size()) {
+            int b = cal (idx+1, num.get(idx+1), num.get(idx+2));
+            int c = cal (idx, sum, b);
+            dfs(idx+2, c);
+        }
+   }
+    public static int cal(int operator,int a, int b) {
+    	
+    	if(op.get(operator) == '+') {
+    		return a+b;
+    	}else if(op.get(operator) == '-') {
+    		return a-b;
+    	}else if(op.get(operator) == '*') {
+    		return a*b;
+    	}
+    	
+        return 0;
+    }
+}
