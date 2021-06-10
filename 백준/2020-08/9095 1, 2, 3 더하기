@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class Main {	
+    public static void main(String[] args) {
+    	
+    	Scanner sc = new Scanner(System.in);
+
+		int n = sc.nextInt();
+		
+		int d[] = new int[12];
+		
+	
+		
+		for(int i = 0; i< n; i++) {
+			
+			int t= sc.nextInt();
+			
+			d[1] = 1;
+			d[2] = 2;
+			d[3] = 4;
+			
+			for(int j=4;j<=t;j++) {
+				d[j] = d[j-1] + d[j-2] + d[j-3];
+			}
+			
+			System.out.println(d[t]);
+		}
+			
+		
+    	
+    }
+    
+  
+}
