@@ -1,0 +1,96 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
+ 
+public class Main {
+    static int[] dx = {-1,1,0,0};
+    static int[] dy = {0,0,-1,1};
+    static int n;
+    static char[][] map1;
+    static boolean[][] visit;
+    static int cnt1;
+    static int cnt2;
+  
+
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+       
+        n = Integer.parseInt(st.nextToken());
+        cnt1 = 0;
+        cnt2 = 0;
+        map1 = new char[n][n];
+        
+        for(int i = 0; i < n; i++) {
+        	String s = br.readLine();
+        	for(int j = 0; j < n; j++) {
+        		map1[i][j] = s.charAt(j);
+        	}
+        }
+        
+
+        visit = new boolean[n][n];
+        
+        for(int i = 0; i < n; i++) {
+        	for(int j = 0; j < n; j++) {
+        		
+        		if(visit[i][j] == false) {
+        			visit[i][j] = true;
+        			dfs(i,j);
+        			cnt1++;
+        		}
+        		
+        	}
+        }
+        
+        
+        for(int i = 0; i < n; i++) {
+
+        	for(int j = 0; j < n; j++) {
+        		if(map1[i][j] == 'G') {
+        			map1[i][j] = 'R';
+        		}else {
+        			map1[i][j] = map1[i][j];
+        		}
+        		
+        	}
+        }
+        
+        visit = new boolean[n][n];
+        for(int i = 0; i < n; i++) {
+
+        	for(int j = 0; j < n; j++) {
+        		
+        		if(visit[i][j] == false) {
+        			visit[i][j] = true;
+        			dfs(i,j);
+        			cnt2++;
+        		}
+        		
+        	}
+        }
+        System.out.println(cnt1+" "+cnt2);
+        
+    }
+    static void dfs(int x, int y) {
+      
+    	int nx = 0;
+    	int ny = 0;
+    	
+    	for(int i = 0; i <4; i++) {
+    		nx = x + dx[i];
+    		ny = y + dy[i];
+    		
+    		if(nx >= 0 && ny >= 0 && nx < n && ny < n && visit[nx][ny] == false && map1[x][y] == map1[nx][ny]) {
+    			visit[nx][ny] = true;
+    			dfs(nx, ny);
+    		}
+    		
+    	}
+    	
+    	
+    }
+    
+}
