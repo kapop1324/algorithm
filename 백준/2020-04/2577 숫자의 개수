@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+        
+		int a,b,c;
+		a = sc.nextInt();
+		b = sc.nextInt();
+		c = sc.nextInt();
+		sc.close();
+		int e = a*b*c;
+		int d = (int)(Math.log10(a*b*c)+1);
+		
+		int numbers[] = new int[10];
+		int number,i;
+		for(i = d; i>0; i--) {
+			number = (int) (e/Math.pow(10, i-1));
+			
+			e = e-(int) (number*Math.pow(10, i-1));
+			
+			  if(number==0) { numbers[0] = numbers[0] + 1; } else if(number==1) {
+				  numbers[1] = numbers[1] + 1; } else if(number==2) { numbers[2] = numbers[2] +
+				  1; } else if(number==3) { numbers[3] = numbers[3] + 1; } else if(number==4) {
+				  numbers[4] = numbers[4] + 1; } else if(number==5) { numbers[5] = numbers[5] +
+				  1; } else if(number==6) { numbers[6] = numbers[6] + 1; } else if(number==7) {
+				  numbers[7] = numbers[7] + 1; } else if(number==8) { numbers[8] = numbers[8] +
+				  1; } else if(number==9) { numbers[9] = numbers[9] + 1; }
+			
+			
+				
+		}
+		
+		
+		  for(i=0;i<10;i++) { System.out.println(numbers[i]); }
+		 
+		
+		
+		
+		 
+		
+
+	}
+}
+
