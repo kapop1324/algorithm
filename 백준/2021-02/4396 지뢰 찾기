@@ -1,0 +1,100 @@
+import java.util.*;
+import java.util.stream.Collector.Characteristics;
+
+
+
+import java.io.*;
+
+		public class Main {
+		    
+			static int[][] mine;
+			static int[][] check;
+			static char[][] result;
+			static int[] dx = {1,-1,0,0,-1,1,-1,1};
+			static int[] dy = {0,0,1,-1,-1,-1,1,1};
+			static int n;
+			
+		    public static void main(String[] args) throws IOException {
+		    	
+		    	 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		    	StringBuilder sb = new StringBuilder();
+		    	
+		    	 n = Integer.parseInt(br.readLine());
+		    	mine = new int[n][n];
+		    	check = new int[n][n];
+		   
+		    	
+		    	for(int i = 0; i < n; i++) {
+		    		String line = br.readLine();
+		    		for(int j = 0; j < n; j++) {
+		    			if(line.charAt(j) == '*') {
+		    				mine[i][j] = 1;
+		    			}
+		    		}
+		    	}
+		    	
+		    	for(int i = 0; i < n; i++) {
+		    		String line = br.readLine();
+		    		for(int j = 0; j < n; j++) {
+		    			if(line.charAt(j) != 'x') {
+		    				check[i][j] = -1;
+		    			}
+		    		}
+		    	}
+		    	boolean boom = false;
+		    	for(int i = 0; i < n; i++) {
+		    		for(int j = 0; j < n; j++) {
+		    			if(check[i][j] == 0 ){
+		    				if( mine[i][j] == 1) {
+		    					boom = true;
+		    				}
+		    				else {
+			    				for(int k = 0; k < 8; k++) {
+			    					int nx = i + dx[k];
+			    					int ny = j + dy[k];
+			    					if(ny < 0 || nx < 0 || ny >= n || nx >= n) {
+			    						continue;
+			    					}
+			    					else if(mine[nx][ny] == 1){
+			    						check[i][j]++;
+			    					}
+			    				}
+			    			
+			    				
+			    			}
+		    			}
+		    		}
+		    	}
+		    	
+		    	
+		    	for(int i = 0; i < n; i++) {
+		    		for(int j = 0; j < n; j++) {
+		    			if(check[i][j] == -1) {
+		    				 if(boom && mine[i][j]==1) {
+				    				sb.append("*");
+				    			}else {
+				    				sb.append(".");
+				    			}
+		    				
+		    			}
+		    			else {
+		    				if(mine[i][j] == 1) {
+		    					sb.append("*");
+		    				}else {
+		    					sb.append(check[i][j]+"");
+		    				}
+		    				
+		    				
+		    			}
+		    			
+		    		}
+		    		sb.append("\n");
+		    	}
+		    	
+		    	System.out.println(sb);
+		    	
+		   }
+		    
+		
+
+}
