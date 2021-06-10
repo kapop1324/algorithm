@@ -1,0 +1,153 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+	static int[][] map, copy;
+	static int n,m,d,result = 0;
+	static int max = 0;
+
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(bf.readLine());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		d = Integer.parseInt(st.nextToken());
+		map = new int[n+1][m];
+		for(int i=0;i<n;i++) {
+			st = new StringTokenizer(bf.readLine());
+			for(int j=0;j<m;j++) {
+				map[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+		
+		copy = new int[n+1][m];
+		
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<m;j++) {
+				copy[i][j] = map[i][j];
+			}
+		}
+	
+		dfs(0, 0);
+		
+		System.out.println(max);
+	
+	}
+
+	private static void dfs( int cnt, int idx ) {
+	
+		if(cnt==3) {
+			solve();
+			result = 0;
+			
+			for(int i=0;i<n;i++) {
+				for(int j=0;j<m;j++) {
+					map[i][j] = copy[i][j];
+				}
+			}
+			
+			return;
+		}
+		if(idx==m) return;
+		
+		map[n][idx] = 2;
+		dfs(cnt+1, idx+1);
+		map[n][idx] = 0;
+		dfs(cnt,idx+1);
+	}
+
+	private static void solve() {
+		
+		while(true) {			
+			attack();
+			
+			if(!down()) {
+				max = Math.max(max, result);
+			
+				return;
+			}
+			
+		}
+		
+	}
+
+	private static boolean down() {
+		
+		boolean flag = false;
+		
+		for(int i=n-1;i>=0;i--) {
+			for(int j=0;j<m;j++) {
+				if(map[i][j]==1) {
+					map[i][j] = 0;
+					if(i+1!=n) map[i+1][j] = 1;
+					
+					flag = true;
+				}
+			}
+		}
+		
+		return flag;
+	}
+
+	private static void attack() {
+		
+		int[] kx = {-1, -1, -1};
+		int[] ky = {-1, -1, -1};
+		int idx = 0;
+		for(int i=0;i<m;i++) {
+			
+			int min = Integer.MAX_VALUE;
+			
+			if(map[n][i]!=2) {
+				continue;
+			}
+			int x1= n;
+			int y1 = i;
+			
+			for(int j=0;j<n;j++) {
+				for(int k=0;k<m;k++) {
+					if(map[j][k]==1) {
+						
+						int x2 = j;
+						int y2 = k;
+						
+						int dis = Math.abs(x1-x2)+Math.abs(y1-y2);
+						if(dis>d) {
+							continue;
+						}
+						if(min>dis) {
+							min = dis;
+							kx[idx] = j;
+							ky[idx] = k;
+						}
+						else if(min==dis) {
+							if(ky[idx]>k) {
+								kx[idx] = j;
+								ky[idx] = k;
+							}
+						}
+					
+					}
+				}
+			}
+			
+			idx++;
+		}
+		
+		for(int i=0;i<3;i++) {
+			if(kx[i]==-1) {
+				continue;
+			}
+			
+			if(map[kx[i]][ky[i]]==1) {
+				map[kx[i]][ky[i]] = 0;
+				result++;
+			}
+			
+		}
+	}
+
+}
