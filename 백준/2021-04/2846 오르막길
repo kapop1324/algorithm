@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int N = scan.nextInt();
+		
+		int pre = 0;
+		int cur = scan.nextInt();
+		int sum = 0;
+		int result = 0;
+		
+		for(int i=1; i<N; i++) {
+			pre = cur;
+			cur = scan.nextInt();
+			if(cur - pre > 0) 	
+				sum += cur - pre;
+			else {
+				result = Math.max(result, sum);
+				sum = 0;
+			}
+		}
+		result = Math.max(result, sum);
+
+		System.out.println(result);
+		scan.close();
+	}
+
+}
