@@ -1,0 +1,76 @@
+import java.util.*;
+
+import java.io.*;
+
+	
+		public class Main {
+		    static int n, m, r;
+		    static int[] dx = { 1, 0, -1, 0 };
+		    static int[] dy = { 0, 1, 0, -1};
+		    static int[][] arr;
+		 
+		    public static void main(String[] args) {
+		        Scanner sc = new Scanner(System.in);
+		        
+		        int tc = sc.nextInt();
+		        
+		        for(int t = 0; t < tc; t++) {
+		        	 n = sc.nextInt();
+				        r = sc.nextInt();
+				        arr = new int[n][n];
+				        for (int i = 0; i < n; i++) {
+				            for (int j = 0; j < n; j++) {
+				                arr[i][j] = sc.nextInt();
+				            }
+				        }
+				 
+				        int s = n/2;
+				        int cnt;
+				        if(r < 0) {
+				        	r= r/45 +8;
+				        }else {
+				        	 r = r/45;
+				        }
+				       
+				 
+				        for (int j = 0; j < r; j++) {
+				        	cnt = s;
+				        	 for (int i = 0; i < s; i++) {
+						            int d = 0;
+						            int x = i;
+						            int y = i;
+						            int temp = arr[x][y];
+						            while (d < 4) {
+						                int nx = x + dx[d]*(s-i);
+						                int ny = y + dy[d]*(s-i);
+						 
+						                if (nx >= i && ny >= i && nx < n - i && ny < n - i) {
+						                    arr[x][y] = arr[nx][ny];
+						 
+						                    x = nx;
+						                    y = ny;
+						                } else {
+						                	
+						                    d++;
+						                }
+						            }
+						            arr[i ][i+ cnt] = temp;
+						            cnt--;
+						        }
+				        }
+				        for (int i = 0; i < arr.length; i++) {
+				            for (int j = 0; j < arr[i].length; j++) {
+				                System.out.print(arr[i][j] + " ");
+				            }
+				            System.out.println();
+				        }
+		        }
+		        
+		       
+		 
+		    }
+		 
+		   
+		}
+	
+
