@@ -1,0 +1,68 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+  
+	static char[][] map;
+	static boolean[][] check;
+	static int cnt, max;
+	static int[] dx = {-1,0,1};
+	static int r,c;
+	
+    public static void main(String[] args) throws IOException {
+       
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	 
+    	StringTokenizer st = new StringTokenizer(br.readLine()," ");
+    			
+    	r = Integer.parseInt(st.nextToken());
+    	 c = Integer.parseInt(st.nextToken());
+    	
+    	map = new char[r][];
+    	check = new boolean[r][c];
+    
+    	for(int i = 0; i < r; i++) {
+    		map[i] = br.readLine().toCharArray();
+    	}
+    	
+    	cnt = 0;
+    	
+    	for(int i = 0; i < r; i++) {
+    		check[i][0] = true;
+    		dfs(i,0);
+    	}
+    	System.out.println(cnt);
+    	
+    }
+    
+
+    
+    public static boolean dfs(int x, int y ){
+    	
+    	if(y == c-1) {
+    		
+    		cnt++;
+    		return true;
+    	}
+    	 
+    		int ny = y + 1;
+    		int nx;
+    		for(int j = 0; j < 3; j++) {
+    			nx = x + dx[j];
+    			if(nx < 0 || nx >= r || map[nx][ny] == 'x' || check[nx][ny])continue;
+    			
+    			check[nx][ny] = true;
+    			if(dfs(nx,ny)) return true;
+    			
+    				
+    			}
+    			
+    		return false;
+    }
+    	
+    	
+    
+
+
+    
+}
