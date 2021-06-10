@@ -1,0 +1,70 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {    
+	
+	static int n,m;
+	static ArrayList<Integer>[][] list;
+	static boolean visit[];
+    
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        
+         n = Integer.parseInt(st.nextToken());
+         m = Integer.parseInt(st.nextToken());
+        
+         list = new ArrayList[n+1][2];
+         
+         for(int i = 1; i <=n; i++) {
+        	 for(int j = 0; j < 2; j++) {
+        		 list[i][j] = new ArrayList<>();
+        	 }
+         }
+       
+         for(int i = 0; i < m ; i++) {
+        	 st = new StringTokenizer(br.readLine()," ");
+        	 int u = Integer.parseInt(st.nextToken());
+        	 int v = Integer.parseInt(st.nextToken());
+        	 
+        	 list[u][0].add(v);
+        	 list[v][1].add(u);
+        	 
+         }
+         
+         int result = 0;
+         
+         for(int i = 1; i <= n; i++) {
+        	 visit = new boolean[n+1];
+        	 int a = dfs(0,i);
+        	 int b = dfs(1,i);
+        	 if(a+b == n+1) {
+        		 result++;
+        	 }
+        	 
+         }
+        System.out.println(result);
+      
+    }
+    
+  public static int dfs(int idx, int node) {
+	  
+	  int cnt = 1;
+	  visit[node] = true;
+	  
+	  for(int i : list[node][idx]) {
+		  if(visit[i] == false) {
+			  cnt += dfs(idx,i);
+		  }
+	  }
+	  
+	  return cnt;
+  }
+	
+	
+}
+
+
+
