@@ -1,0 +1,66 @@
+import java.io.*;
+import java.util.*;
+
+
+
+
+
+
+public class Main {
+	
+	static int n;
+	static int[] arr;
+	static int a1, a2;
+	
+    public static void main(String args[]) throws IOException {
+    	
+    	Scanner sc = new Scanner(System.in);
+    	
+    	 n = sc.nextInt();
+    	
+    	arr = new int[n];
+    	
+    	for(int i =0; i < n; i++) {
+    		arr[i] = sc.nextInt();
+    	}
+    	
+    	
+    	Arrays.sort(arr);
+    	
+    	bin();
+    	
+    	System.out.println(a1+" "+a2);
+    	
+    	
+    	
+    }
+    
+    static void bin() {
+    	int left = 0;
+    	int right = n-1;
+    	int max = Integer.MAX_VALUE;
+    	int sum = 0;
+    	
+    	while(left < right) {
+    		sum  = arr[left] + arr[right];
+    		
+    		if(Math.abs(sum) < max) {
+    			a1 = arr[left];
+    			a2 = arr[right];
+    			max = Math.abs(sum);
+    		}
+    		
+    		if(sum > 0) {
+    			right--;
+    		}else {
+    			left++;
+    		}
+    		
+
+    	}
+    	
+    }
+    
+}
+
+
