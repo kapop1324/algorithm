@@ -1,0 +1,53 @@
+import java.util.*;
+
+
+public class Main {
+   
+    public static void main(String args[])  {
+      
+    	Scanner sc = new Scanner(System.in);
+    	
+    	long k = sc.nextLong();
+    	
+    	for(int t = 0; t < k; t++) {
+    		long n = sc.nextLong();
+    		
+    		long arr[] = new long[(int) n];
+    		
+    		for(int i = 0; i < n; i++) {
+    			arr[i] = sc.nextLong();
+    		
+    		}
+    		
+    		long result = 0;
+    		
+    		for(int i = 0; i < n; i++) {
+    			
+    			for(int j = i+1; j < n; j++) {
+    				
+    				result += gcd(arr[i],arr[j]);
+    				
+    			}
+    		
+    		}
+    		System.out.println(result);
+    	}
+    	
+    	
+    		
+       
+    }
+    
+    public static long gcd(long a, long b) {
+    	
+    	long max = Math.max(a, b);
+    	long min = Math.min(a, b);
+    	
+    	if(max % min == 0) return min;
+    	else return gcd(max%min, min);    	
+    }
+    
+ 
+    
+    
+}
