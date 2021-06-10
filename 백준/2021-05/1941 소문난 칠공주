@@ -1,0 +1,115 @@
+import java.io.*;
+import java.util.*;
+ 
+public class Main {
+	
+	static int n;
+	static char[][] arr;
+	static int result;
+	static int[] sel;
+	static int[] dx = {0,0,-1,1};
+	static int[] dy = {1,-1,0,0};
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+	       
+		  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		  StringTokenizer st;
+		  
+		  	arr = new char[5][5];
+			for (int i = 0; i < 5; i++) {
+				String s = br.readLine();
+				for (int j = 0; j < 5; j++) {
+					arr[i][j] = s.charAt(j);
+				}
+			}
+			sel = new int[7];
+			Arrays.fill(sel, -1);
+			dfs(0,0,0);
+			System.out.println(result);
+			
+		  
+		
+		 
+		
+		  
+	}
+	 private static void dfs(int idx, int cnt,int cnt_y){
+		 
+		 if(cnt_y > 3) {
+			 return;
+		 }
+		 
+		 if(cnt == 7) {
+			if(check() == true) {
+				result++;
+			}
+			 return;
+		 }
+		 
+		 if(idx == 25) {
+			 return;
+		 }
+		 
+		 int ycheck = 0;
+		 if(arr[idx/5][idx%5] == 'Y') {
+			 ycheck = 1;
+		 }
+		 
+		 sel[cnt] = idx;
+		 dfs(idx+1,cnt+1,cnt_y+ycheck);
+		 dfs(idx+1,cnt,cnt_y);
+		 
+
+	    	
+	 }
+	 
+	 private static boolean check() {
+		 
+		 boolean[] visit = new boolean[7];
+		 visit[0] = true;
+		 
+		 Queue<Integer> q = new LinkedList<Integer>();
+		 q.offer(0);
+		 int cnt = 1;
+		 
+		 while(!q.isEmpty()) {
+			 int now = q.poll();
+			 for(int i = 0; i < 7;i++) {
+				 
+				 if(now == i) {
+					 continue;
+				 }
+				 
+				 if(visit[i] == true) {
+					 continue;
+				 }
+				 
+				 if(sel[now]%5 == 0 && sel[now]-1 == sel[i]) {
+					 continue;
+				 }
+				 
+				 if(sel[now]%5 == 4 && sel[now]+1 == sel[i]) {
+					 continue;
+				 }
+				 
+				 if(sel[now] - 1 == sel[i] || sel[now] + 1 == sel[i] || sel[now]+5 == sel[i] || sel[now] - 5 == sel[i]) {
+						q.offer(i);
+						visit[i] = true;
+						cnt++;
+				}
+				 
+			 }
+		 }
+		 
+		 if(cnt != 7) {
+			 return false;
+		 }
+		 
+		 return true;
+	 }
+    
+
+
+
+}
+
