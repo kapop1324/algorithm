@@ -1,0 +1,105 @@
+import java.io.*;
+import java.util.*;
+
+
+class edge{
+	int y;
+	int cost;
+	
+	public edge(int y, int cost) {
+		this.y = y;
+		this.cost = cost;
+	}
+}
+
+
+public class Main {
+    public static void main(String args[]) throws IOException {
+       Scanner sc = new Scanner(System.in);
+       
+       int n = sc.nextInt();
+       List<edge>[] d = (List<edge>[]) new LinkedList[n+1];
+       int[] dist = new int[n+1];
+       
+       for(int i = 0; i <=n ; i++) {
+    	   d[i] = new LinkedList<edge>();
+       }
+       
+       for( int i=0 ; i<n; i++) {
+
+           int node = sc.nextInt();
+
+           
+
+           while (true) {
+
+               int num = sc.nextInt();
+
+               if ( num == -1 ) {
+
+                   break;
+
+               }
+
+               
+
+               int cost = sc.nextInt();
+
+               d[node].add( new edge( num, cost ));
+
+
+
+           } 
+
+       }
+       
+       dist = bfs(d,1,n);
+       
+       int start = 0;
+       for(int i = 1; i < dist.length; i++) {
+    	   if(dist[start]<dist[i]) {
+    		   start = i;
+    	   }
+       }
+       
+       dist = bfs(d,start,n);
+       
+       int max = start;
+       for(int i = 1; i < dist.length; i++) {
+    	   if(dist[max]<dist[i]) {
+    		   max = i;
+    	   }
+       }
+       
+       System.out.println(dist[max]);
+    }
+    
+    public static int[] bfs(List<edge>[]d,int start, int n) {
+    	
+    	boolean[] c = new boolean[n+1];
+    	
+    	int[] dist = new int[n+1];
+    	Queue<Integer> q = new LinkedList<Integer>();
+    	q.add(start);
+    	c[start] = true;
+    	
+    	while(!q.isEmpty()) {
+    		int v = q.poll();
+    		c[v] = true;
+    		
+    		for(edge e:d[v]) {
+    			int y = e.y;
+    			int cost = e.cost;
+    			if(!c[y]) {
+    				q.add(y);
+    				dist[y] = dist[v]+cost;
+    			}
+    		}
+    		
+    	}
+    	
+    	
+    	return dist;
+    }
+    
+}
