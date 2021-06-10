@@ -1,0 +1,129 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+ 
+public class Main {
+    static int n;
+    static int[][] arr;
+    static boolean[] visit;
+    static int[] board;
+    static int max;
+    
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
+        arr = new int[n][10];
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
+            for (int j = 1; j < 10; j++) {
+                arr[i][j] = Integer.parseInt(st.nextToken());
+            }
+        } 
+ 
+        visit = new boolean[10];
+        board = new int[10];
+        board[4] = 1;
+        max = Integer.MIN_VALUE;
+        dfs(1);
+        System.out.println(max);
+    }
+ 
+
+    public static void dfs(int idx) {
+        if (idx == 4) {
+            dfs(idx + 1);
+            return;
+        }
+        if (idx == 10) {
+            int score = game();
+            max = Math.max(score, max);
+            return;
+        }
+ 
+        for (int i = 2; i < 10; i++) {
+            if (visit[i]) {
+            	 continue;
+            }
+               
+            board[idx] = i;
+            visit[i] = true;
+            dfs(idx + 1);
+            visit[i] = false;
+        }
+    }
+ 
+    public static int game() {
+        int score = 0;
+        int out;
+        boolean[] base = new boolean[4];
+        int player = 1;
+        
+        for (int i = 0; i < n; i++) {
+            out = 0;
+            Arrays.fill(base, false);
+            while(true) {
+                int hit = arr[i][board[player]];
+                if(player==9) {
+                	player = 1;
+                }
+                else {
+                	player++;
+                	
+                }
+                
+               if (hit == 1) {
+                    if(base[3]) {
+                        score++;
+                        base[3]=false;
+                    }
+                    for(int j=2;j>=1;j--) {
+                        if(base[j]) {
+                        	base[j]=false;
+                        	base[j+1]=true;
+                        }
+                    }
+                    base[1]=true;
+                } else if (hit == 2) {
+                    if(base[3]) {
+                        score++;
+                        base[3]=false;
+                    }
+                    if(base[2]) {
+                        score++;
+                        base[2]=false;
+                    }
+                    if(base[1]) {
+                    	base[1]=false;
+                    	base[3]=true;
+                    }
+                    base[2]=true;
+ 
+                } else if (hit == 3) {
+                    for(int j=1;j<=3;j++) {
+                        if(base[j]) {
+                            score++;
+                            base[j]=false;
+                        }
+                    }
+                    base[3] = true;
+                } else if (hit == 4) {
+                    for(int j=1;j<=3;j++) {
+                        if(base[j]) {
+                            score++;
+                            base[j]=false;
+                        }
+                    }
+                    score++; 
+                } 
+                else if (hit == 0) {
+                   out++;
+                   if(out == 3) {
+               		break;
+               	}
+               }
+            }
+        }
+        return score;
+    }
+}
