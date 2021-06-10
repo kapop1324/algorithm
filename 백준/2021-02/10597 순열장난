@@ -40,7 +40,6 @@ public class Main {
             return;
         }
 
-        // 한자리라면
         if(!number[s.charAt(idx) - '0']) {
             int a = s.charAt(idx) - '0';
             if(a != 0) {
@@ -51,7 +50,7 @@ public class Main {
             }
         }
 
-        // 두자리라면
+     
         if(idx + 1 < s.length()) {
             int a = Integer.parseInt(s.substring(idx, idx + 2));
             if(a >= number.length) {
