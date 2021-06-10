@@ -1,0 +1,52 @@
+import java.io.*;
+import java.util.*;
+ 
+public class Main {
+	
+	static int n;
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+	       
+		  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		  StringTokenizer st = new StringTokenizer(br.readLine()," ");
+		  n = Integer.parseInt(st.nextToken());
+		  dfs("");
+		
+		  
+	}
+	 private static void dfs(String s){
+	    
+		 if(s.length()==n) {
+			 System.out.println(s);
+			 System.exit(0);
+			 return;
+		 }
+	
+	    	
+		 for(int i =1; i<=3; i++) {
+			 
+			 if(check(s+i)) {
+				 dfs(s+i);
+			 }
+
+		 }
+	    	
+	    	
+	 }
+	 
+	 private static boolean check(String s) {
+		 
+		 for(int i =1; i <= s.length()/2;i++) {
+			 if(s.substring(s.length()-i,s.length()).equals(s.substring(s.length()-i*2,s.length()-i))) {
+				 return false;
+			 }
+		 }
+		 
+		 return true;
+	 }
+    
+
+
+
+}
+
