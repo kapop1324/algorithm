@@ -1,0 +1,76 @@
+import java.util.*;
+
+import java.io.*;
+
+	
+		public class Main {
+		    
+			
+		    public static void main(String[] args) {
+		        Scanner sc = new Scanner(System.in);
+		        
+		        int a = sc.nextInt();
+		        int b = sc.nextInt();
+		        int c = sc.nextInt();
+		        int d = sc.nextInt();
+		        
+		        int[] arr = new int[4];
+		        
+		        int min = 10000;
+		        
+		         arr[0] = a*1000+b*100+c*10+d;
+		         arr[1] = b*1000+c*100+d*10+a;
+		         arr[2] = c*1000+d*100+a*10+b;
+		         arr[3] = d*1000+a*100+b*10+c;
+		         
+		         for(int i = 0; i < 4; i++) {
+		        	 min = Math.min(arr[i], min);
+		         }
+		         
+		         int result = min;
+		       
+		         int cnt = 1;
+		         for(int i = 1111; i < result; i++) {
+		        	 
+		        	 	arr = new int[4];
+				        
+				         min = 10000;
+				        int p = i;
+				        
+				        a = p/1000;
+				        p %= 1000;
+				        
+				        b = p/100;
+				        p %= 100;
+				        
+				        c = p/10;
+				        p %= 10;
+				        
+				        d = p;
+				        
+				         arr[0] = a*1000+b*100+c*10+d;
+				         arr[1] = b*1000+c*100+d*10+a;
+				         arr[2] = c*1000+d*100+b*10+b;
+				         arr[3] = d*1000+a*100+a*10+c;
+				         
+				         for(int j = 0; j < 4; j++) {
+				        	 min = Math.min(arr[j], min);
+				         }
+				         
+				         if(min == i) {
+				        	 cnt++;
+				         }
+				         
+		         }
+		       
+		        System.out.println(cnt);
+		        		
+		       
+		    }
+		  
+		  
+		 
+		   
+		}
+	
+
