@@ -1,0 +1,75 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.StringTokenizer;
+ 
+public class Main {
+    public static int N, M, max = 0;
+    public static int[][] map;
+    public static int[][] dir = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    public static Map<Integer, Integer> land = new HashMap<Integer, Integer>();
+    
+    public static void bfs(int i, int j, int key) {
+        int count = 1;
+        Queue<int[]> q = new ArrayDeque<>();
+        q.add(new int[]{i, j});
+        map[i][j] = key;
+        while(!q.isEmpty()) {
+            int[] cur = q.poll();
+            for(int d=0; d<dir.length; d++) {
+                int x = cur[0] + dir[d][0];
+                int y = cur[1] + dir[d][1];
+                if(x>=0 && x<N && y>=0 && y<M && map[x][y]==1) {
+                    map[x][y] = key;
+                    count++;
+                    q.add(new int[]{x, y});
+                }
+            }
+        }
+        land.put(key, count);
+    }
+    
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        map = new int[N][M];
+        for(int i=0; i<N; i++) {
+            String s = br.readLine();
+            for(int j=0; j<M; j++) map[i][j] = s.charAt(j*2)-'0';
+        }
+        int key = 2;
+        for(int i=0; i<N; i++) {
+            for(int j=0; j<M; j++) {
+                if(map[i][j]==1) bfs(i, j, key++);
+            }
+        }
+        Set<Integer> keySet = new HashSet<Integer>();
+        for(int i=0; i<N; i++) {
+            for(int j=0; j<M; j++) {
+                if(map[i][j]==0) {
+                    keySet.clear();
+                    int size = 1;
+                    for(int d=0; d<dir.length; d++) {
+                        int x = i + dir[d][0];
+                        int y = j + dir[d][1];
+                        if(x>=0 && x<N && y>=0 && y<M && map[x][y]!=0) {
+                            keySet.add(map[x][y]);
+                        }
+                    }
+                    for(int k : keySet) {
+                        size += land.get(k);
+                    }
+                    if(max<size) max = size;
+                }
+            }
+        }
+        System.out.println(max);
+    }
+}
