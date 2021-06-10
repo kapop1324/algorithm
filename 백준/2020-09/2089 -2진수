@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+
+
+public class Main {
+	
+	
+   
+    public static void main(String args[]) throws Exception  {
+   
+    	Scanner sc = new Scanner(System.in);
+    	StringBuilder sb = new StringBuilder();
+    	int n = sc.nextInt();
+    	
+    	if(n==0) {
+    		System.out.println(0);
+    	}
+    	else {
+    		while(n!=0) {
+    			sb.append(Math.abs(n%-2));
+    			n = (int)Math.ceil((double)n/-2);
+    		}
+    	}
+    
+    	
+    	
+    	System.out.println(sb.reverse());
+    	
+    
+    	
+    	
+    }
+  
+    
+    
+}
