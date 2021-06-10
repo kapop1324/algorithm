@@ -1,0 +1,148 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+  
+	static int[][] map;
+	static int cnt;
+	static boolean[][] check;
+	static int[] dx = {0,1,1};
+	static int[] dy = {1,1,0};
+	static int n;
+	
+    public static void main(String[] args) throws IOException {
+       
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	 
+    	StringTokenizer st ;
+    	n = Integer.parseInt(br.readLine());
+    	 
+    	
+    	map = new int[n][n];
+    	check = new boolean[n][n];
+    	
+    	
+    
+    	for(int i = 0; i <n ; i++) {
+    		st = new StringTokenizer(br.readLine()," ");
+    		for(int j = 0; j < n; j++) {
+    			map[i][j] = Integer.parseInt(st.nextToken());
+    					
+    		}
+    	}
+    	
+    	cnt = 0;
+    	
+    	check[0][0] = true;
+    	check[0][1] = true;
+    	
+    	
+    		dfs(0,1,0);
+    			System.out.println(cnt);
+    		
+    	
+    	
+    	
+    }
+    
+
+    
+    public static  void dfs(int x, int y ,int idx){
+    	
+    	
+    	
+    	if(x == n-1 && y == n-1 && map[x][y] != 1) {
+    		
+    		cnt++;
+    		return ;
+    		
+    		
+    	}
+	    	for(int i = 0; i < 3; i++) {
+				int nx = x + dx[i];
+				int ny = y + dy[i];
+				
+				if(idx == 0) {
+					if( i == 2) {
+						continue;
+					}
+				}
+				
+				if(idx == 2) {
+					if( i == 0) {
+						continue;
+					}
+				}
+				
+				if(check(nx,ny,i) == true && check[nx][ny] == false) {
+					
+					check[nx][ny] = true;
+					
+					if(i == 1) {
+						check[nx-1][ny] = true;
+						check[nx][ny-1] = true;
+					}
+					
+    				dfs(nx,ny,i);
+    				
+    				
+					check[nx][ny] = false;
+					
+					if(i == 1) {
+						check[nx-1][ny] = false;
+						check[nx][ny-1] = false;
+					}
+					
+    			}
+				
+	    		
+	    		
+			}
+    		
+    		
+    		
+    	
+    	
+    			
+    	
+    }
+    
+    public static boolean check(int x, int y, int idx) {
+    	
+    	if(idx == 0) {
+    		if(x >= 0 && x < n && y >= 0 && y < n && map[x][y] == 0) {
+        		return true;
+        	}
+    		else {
+        		return false;
+        	}
+    	}
+    	else if(idx == 1) {
+    		if(x >= 0 && x < n && y >= 0 && y < n && map[x][y] == 0 && map[x-1][y] == 0 && map[x][y-1] == 0) {
+        		return true;
+        	}
+    		else {
+        		return false;
+        	}
+    	}
+    	else if(idx == 2) {
+    		if(x >= 0 && x < n && y >= 0 && y < n && map[x][y] == 0) {
+        		return true;
+        	}
+    		else {
+        		return false;
+        	}
+    	}
+    	else {
+    		return false;
+    	}
+    	
+    	
+    	
+    }
+    	
+    
+
+
+    
+}
