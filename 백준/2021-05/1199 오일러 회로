@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+ 
+public class Main {
+	
+	static int n;
+	static int[][] arr;
+	static StringBuilder sb = new StringBuilder();
+	public static void main(String[] args) throws NumberFormatException, IOException {
+	       
+		  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		  StringTokenizer st;
+		  n = Integer.parseInt(br.readLine());
+		  arr = new int[n][n];
+		  
+		  for(int i = 0; i < n; i++) {
+			 st = new StringTokenizer(br.readLine()," ");
+			  for(int j = 0; j < n; j++) {
+				 arr[i][j] = Integer.parseInt(st.nextToken());
+			  }
+		  }
+		  
+		  boolean flag = true;
+		  
+		  for(int i = 0; i < n; i++) {
+			  int cnt = 0;
+			  for(int j = 0; j < n; j++) {
+				  if(arr[i][j] > 0) {
+					  cnt+=arr[i][j];
+				  }
+			  }
+			  if(cnt % 2 == 1) {
+				  flag = false;
+				  break;
+			  }
+		  }
+		  
+		  if(flag == true) {
+			  dfs(0);
+			  System.out.println(sb);
+		  }else {
+			  System.out.println(-1);
+		  }
+
+	       
+	    }
+
+	    private static void dfs(int now){
+
+	    	
+	    	for(int i = 0; i < n; i++) {
+	    		while(arr[now][i] > 0) {
+	    			arr[now][i]--;
+	    			arr[i][now]--;
+	    			dfs(i);
+	    		}
+	    		
+	    		
+	    	}
+	    	
+	    	sb.append((now+1)+" ");
+	    }
+    
+}
+
