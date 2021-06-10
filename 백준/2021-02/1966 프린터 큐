@@ -1,0 +1,60 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+   
+
+	
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+       
+        
+        int tc = sc.nextInt();
+        for(int t = 0; t < tc; t++) {
+        	 LinkedList<int[]> q = new LinkedList<>();
+        	int cnt = 0;
+            int n = sc.nextInt();
+            int pr = sc.nextInt();
+            for(int i = 0; i < n; i++) {
+            	int a = sc.nextInt();
+            	if(i == pr) {
+            		q.offer(new int[]{a,1});
+            	}
+            	else {
+            		q.offer(new int[]{a,0});
+            	}
+            	
+            }
+            
+            while(!q.isEmpty()) {
+            	int length = q.size();
+            	boolean big = false;
+            	for(int i = 1; i < length; i++) {
+            		if(q.get(0)[0] < q.get(i)[0]) {
+            			big  = true;
+            			
+            		}
+            		
+            	}
+            	if(big == true) {
+            		q.offer(q.poll());
+            	}
+            	else {
+            		cnt++;
+            		if(q.poll()[1] == 1) {
+            			
+            			break;
+            		}
+            		
+            	}
+            }
+            
+            System.out.println(cnt);
+          
+        }
+        
+        
+    }
+
+   
+}
