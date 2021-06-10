@@ -1,0 +1,68 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
+ 
+public class Main {
+    static int[] dx = {-1,1,0,0};
+    static int[] dy = {0,0,-1,1};
+    static int n;
+    static int m;
+    static int[][] map;
+    static boolean[][] visited;
+    static int count;
+    static int s;
+    static ArrayList<Integer> square = new ArrayList<Integer>();
+ 
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+       
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        
+        map = new int[n][m];
+        visited = new boolean[n][m];
+        
+        for(int i=0; i<n; i++) {
+            st = new StringTokenizer(br.readLine()," ");
+            for(int j=0; j<m; j++) {
+                map[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+        
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
+                if(map[i][j] == 1 && !visited[i][j]) {
+                	s = 1;
+                    dfs(i,j);
+                    count++;
+                    square.add(s);
+                }
+            }
+        }
+        
+        System.out.println(count);
+        if(square.size()==0) {
+        	System.out.println(0);
+        }else {
+        	System.out.println(Collections.max(square));
+        }
+        
+      
+        
+    }
+    static void dfs(int x, int y) {
+        visited[x][y] = true;
+        
+        for(int i=0; i<4; i++) {
+            if(x+dx[i] >= 0 && x+dx[i] < n && y+dy[i] >= 0 && y+dy[i] < m &&
+                map[x+dx[i]][y+dy[i]] == 1 && !visited[x+dx[i]][y+dy[i]]) {
+            	s++;
+                dfs(x+dx[i],y+dy[i]);
+            }
+        }
+    }
+ 
+}
