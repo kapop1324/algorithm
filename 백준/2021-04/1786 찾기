@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+ 
+public class Main {    
+ 
+   
+    
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       
+        
+        String t = br.readLine();
+        String p = br.readLine();
+        int tsize = t.length();
+        int psize = p.length();
+        
+        if(tsize < psize) {
+        	System.out.println(0);
+        }else {
+        	int d = 26;
+        	int mod = (int)1e9 + 7;
+        	long head = 1;
+        	long phash = 0;
+        	long nowhash = 0;
+        	
+        	for(int i = 0; i < psize; i++) {
+        		phash = (phash * d + p.charAt(i)) % mod;
+        		nowhash = (nowhash * d + t.charAt(i)) % mod;
+        		if(i!=0) head = (head * d) % mod;
+        	}
+        	
+        	LinkedList<Integer> result = new LinkedList<>();
+        	for(int i = 0; i <= tsize-psize; i++) {
+        		if(nowhash == phash) {
+        			result.add(i+1);
+        		}
+        		if(i + psize == tsize) {
+        			break;
+        		}
+        		nowhash = (d *(nowhash - t.charAt(i) * head) + t.charAt(i+psize)) % mod;
+        		if(nowhash < 0) {
+        			nowhash += mod;
+        		}
+        	}
+        	System.out.println(result.size());
+        	for(Integer a : result) {
+        		System.out.print(a+" ");
+        	}
+        	
+        }
+        
+
+    }
+
+
+}
