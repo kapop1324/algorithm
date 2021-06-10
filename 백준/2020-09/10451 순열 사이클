@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+
+
+public class Main {
+	static int graph[];
+	static boolean check[];
+	
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int t = sc.nextInt();
+		
+		
+		for(int j = 0; j<t; j++) {
+			
+			int n = sc.nextInt();
+			
+			graph = new int[n+1];
+			check = new boolean[n+1];
+			
+		
+		for(int i =1; i<=n; i++) {
+			graph[i] = sc.nextInt();
+		}
+		int sum = 0;
+		for(int i =1; i<=n; i++) {
+			if(check[i] == false) {
+				sum+=1;
+				dfs(i);
+			}
+			
+			
+			
+		}
+			
+		System.out.println(sum);
+	
+	}
+	}
+	public static void dfs(int n) {
+	
+		
+		
+		check[n] = true;
+		
+		
+		if(check[graph[n]] == false) {
+
+			dfs(graph[n]);
+
+			
+		}
+		
+		
+	
+		
+		
+	}
+
+
+
+	
+
+}
