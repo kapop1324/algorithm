@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int n = sc.nextInt();
+		int i,j,k,t = 0;
+		
+		for(i=n; i>0; i--) {
+			
+			for( k=i-1; k>0; k--) {
+				System.out.print(" ");
+			}
+			t++;
+			for( j=0; j<t; j++) {
+				System.out.print("*");
+			}
+			
+			
+			System.out.println();	
+
+		}
+
+		
+		
+		
+	}
+	
+}
