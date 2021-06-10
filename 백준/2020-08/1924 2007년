@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class Main {	
+    public static void main(String[] args) {
+    	
+    	Scanner sc = new Scanner(System.in);
+    	
+    	int a = sc.nextInt();
+    	int b = sc.nextInt();
+    	int result;
+    	
+    	int c[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    	
+    	int sum = 0;
+    	for(int i=0; i<a-1; i++) {
+    		sum += c[i];
+    	}
+    	
+    	result = (sum + b)%7;
+    	
+    	if(result == 1) {
+    		System.out.println("MON");
+    	}
+    	else if(result == 2) {
+    		System.out.println("TUE");
+    	}
+    	else if(result == 3) {
+    		System.out.println("WED");
+    	}
+
+    	else if(result == 4) {
+    		System.out.println("THU");
+    	}
+
+    	else if(result == 5) {
+    		System.out.println("FRI");
+    	}
+    	else if(result == 6) {
+    		System.out.println("SAT");
+    	}
+    	else {
+    		System.out.println("SUN");
+    	}
+
+
+    	
+    }
+    
+  
+}
