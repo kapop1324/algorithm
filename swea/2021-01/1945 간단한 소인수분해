@@ -1,0 +1,85 @@
+
+class Solution
+{
+    public static void main(String args[]) throws Exception
+    {
+            Scanner sc = new Scanner(System.in);
+         
+         
+         
+        int tc = sc.nextInt();
+         
+        for(int t = 1 ; t <= tc; t++) {
+             
+            int arr[] = new int[5];
+             
+                int a = sc.nextInt();
+             
+                while(a > 1) {
+                    if(a % 2 == 0) {
+                        arr[0]++;
+                        a /= 2;
+                    }
+                    else {
+                        break;
+                    }
+                     
+                }
+                 
+                 
+                while(a > 1) {
+                    if(a % 3 == 0) {
+                        arr[1]++;
+                        a /= 3;
+                    }
+                    else {
+                        break;
+                    }
+                     
+                }
+                 
+                 
+ 
+                while(a > 1) {
+                    if(a % 5 == 0) {
+                        arr[2]++;
+                        a /= 5;
+                    }
+                    else {
+                        break;
+                    }
+                     
+                }
+                 
+                 
+                while(a > 1) {
+                    if(a % 7 == 0) {
+                        arr[3]++;
+                        a /= 7;
+                    }
+                    else {
+                        break;
+                    }
+                     
+                }
+                 
+                 
+                while(a > 1) {
+                    if(a % 11 == 0) {
+                        arr[4]++;
+                        a /= 11;
+                    }
+                    else {
+                        break;
+                    }
+                     
+                }
+             
+                 
+                 
+                 
+                System.out.println("#"+t+" "+arr[0]+" "+arr[1]+" "+arr[2]+" "+arr[3]+" "+arr[4]);
+        }
+     
+    }
+}
