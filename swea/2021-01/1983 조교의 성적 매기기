@@ -1,0 +1,91 @@
+
+class Solution
+{
+    public static void main(String args[]) throws Exception
+    {
+         
+        Scanner sc = new Scanner(System.in);
+         
+        int tc = sc.nextInt();
+         
+        for(int t =1 ; t<=tc; t++) {
+         
+        double n = sc.nextDouble();
+        double p = sc.nextDouble();
+         
+        int q = (int)n/10;
+        int k = 0;
+         
+        int grade[] = new int[10];
+         
+        for(int i = 1; i <=n; i+=q) {
+            double result = i/n*100;
+             
+            grade[k] = (int)result;
+            k++;
+        }
+         
+         
+        double score[] = new double[(int)n];
+         
+        for(int i=0; i<(int)n; i++) {
+             
+            double a = sc.nextDouble();
+            double b = sc.nextDouble();
+            double c = sc.nextDouble();
+             
+            score[i] = a/100*35 + b/100*45 + c/100*20;
+             
+        }
+         
+        p = score[((int)p)-1];
+        Arrays.sort(score);
+         
+        for(int i=0; i<(int)n; i++) {
+             
+            if(score[i] == p) {
+                p = (int)((i+1)/n*100);
+            }
+             
+             
+        }
+         
+        if((int)p >= grade[9]) {
+            System.out.println("#"+t+" "+"A+");
+        }
+        else if((int)p >= grade[8]) {
+            System.out.println("#"+t+" "+"A0");
+        }
+        else if((int)p >= grade[7]) {
+            System.out.println("#"+t+" "+"A-");
+        }
+        else if((int)p >= grade[6]) {
+            System.out.println("#"+t+" "+"B+");
+        }
+        else if((int)p >= grade[5]) {
+            System.out.println("#"+t+" "+"B0");
+        }
+        else if((int)p >= grade[4]) {
+            System.out.println("#"+t+" "+"B-");
+        }
+        else if((int)p >= grade[3]) {
+            System.out.println("#"+t+" "+"C+");
+        }
+        else if((int)p >= grade[2]) {
+            System.out.println("#"+t+" "+"C0");
+        }
+        else if((int)p >= grade[1]) {
+            System.out.println("#"+t+" "+"C-");
+        }
+        else if((int)p >= grade[0]) {
+            System.out.println("#"+t+" "+"D0");
+        }
+         
+         
+         
+             
+             
+        }
+         
+    }
+}
