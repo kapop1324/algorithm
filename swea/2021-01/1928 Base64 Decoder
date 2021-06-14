@@ -1,0 +1,23 @@
+
+class Solution
+{
+    public static void main(String args[]) throws Exception
+    {
+        Scanner sc = new Scanner(System.in);
+         
+        int tc = sc.nextInt();
+         
+        for(int i = 1 ; i <= tc; i++) {
+             
+            String a = sc.next();
+             
+             
+              String decoded = new String (Base64.getDecoder().decode(a));
+                 
+                 
+                System.out.println("#"+i+" "+decoded);
+        }
+     
+     
+    }
+}
