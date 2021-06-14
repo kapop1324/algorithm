@@ -1,0 +1,44 @@
+
+class Solution
+{
+    public static void main(String args[]) throws Exception
+    {
+         
+        Scanner sc = new Scanner(System.in);
+         
+        int tc = sc.nextInt();
+         
+        for(int i = 1; i <= tc; i++) {
+             
+                String a = sc.next();
+                if((Integer.parseInt(a.substring(4,6)) == 1 && Integer.parseInt(a.substring(6,8)) > 31)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 2 && Integer.parseInt(a.substring(6,8)) > 28)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 3 && Integer.parseInt(a.substring(6,8)) > 31)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 4 && Integer.parseInt(a.substring(6,8)) > 30)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 5 && Integer.parseInt(a.substring(6,8)) > 31)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 6 && Integer.parseInt(a.substring(6,8)) > 30)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 7 && Integer.parseInt(a.substring(6,8)) > 31)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 8 && Integer.parseInt(a.substring(6,8)) > 31)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 9 && Integer.parseInt(a.substring(6,8)) > 30)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 10 && Integer.parseInt(a.substring(6,8)) > 31)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 11 && Integer.parseInt(a.substring(6,8)) > 30)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 12 && Integer.parseInt(a.substring(6,8)) > 31)
+                    ||  (Integer.parseInt(a.substring(4,6)) == 0 || Integer.parseInt(a.substring(6,8)) == 0)
+                        )
+                 {
+                    System.out.println("#"+i+" "+-1);
+                }
+                else {
+                    System.out.println("#"+i+" "+a.substring(0,4)+"/"+a.substring(4,6)+"/"+a.substring(6,8));
+                }
+                 
+         
+             
+             
+             
+         
+        }
+         
+         
+    }
+}
