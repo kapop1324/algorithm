@@ -1,0 +1,77 @@
+
+class Solution
+{
+    public static void main(String args[]) throws Exception
+    {
+         
+          
+        Scanner sc = new Scanner(System.in);
+        int test = sc.nextInt();
+        for(int t = 1; t <= test; t++) {
+         
+        int arr[][] = new int[9][9];
+         
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                arr[i][j] = sc.nextInt();
+            }
+        }
+         
+         
+         
+        boolean number[];
+        int result = 1;
+         
+        for(int i = 0; i < 9; i++) {
+            number = new boolean[9];
+            for(int j = 0; j < 9; j++) {
+                if(number[arr[i][j]-1] ==false) {
+                    number[arr[i][j]-1] = true;
+                     
+                }
+                else if(number[arr[i][j]-1] == true) {
+                    result = 0;
+                }
+            }
+        }
+         
+        for(int i = 0; i < 9; i++) {
+            number = new boolean[9];
+            for(int j = 0; j < 9; j++) {
+                if(number[arr[j][i]-1] ==false) {
+                    number[arr[j][i]-1] = true;
+                     
+                }
+                else if(number[arr[j][i]-1] == true) {
+                    result = 0;
+                }
+            }
+        }
+         
+        for(int k =0; k<9; k+=3) {
+            number = new boolean[9];
+            for(int i = k; i<k+3; i++) {
+                 
+                for(int j = k; j<k+3; j++) {
+                     
+                    if(number[arr[i][j]-1] == false) {
+                        number[arr[i][j]-1] = true;
+                         
+                    }
+                    else if(number[arr[i][j]-1] == true) {
+                        result = 0;
+                    }
+                }
+                 
+                 
+            }
+             
+             
+        }
+         
+        System.out.println("#" + t+" "+result);
+             
+        }
+         
+    }
+}
