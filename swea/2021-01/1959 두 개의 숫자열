@@ -1,0 +1,65 @@
+
+class Solution
+{
+    public static void main(String args[]) throws Exception
+    {
+         
+        Scanner sc = new Scanner(System.in);
+         
+        int arr1[];
+        int arr2[];
+         
+         
+        int tc = sc.nextInt();
+         
+        for(int t = 1 ; t <= tc; t++) {
+            int result = 0;
+            int max = 0;
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+             
+            arr1 = new int[a];
+            arr2 = new int[b];
+             
+            for(int i = 0; i < a; i++) {
+                arr1[i] = sc.nextInt();
+            }
+             
+            for(int i = 0; i < b; i++) {
+                arr2[i] = sc.nextInt();
+            }
+         
+            if(a < b) {
+                for(int j = 0; j < b-a+1; j++) {
+                    result = 0;
+                    for(int i =0; i<a; i++) {
+                         result += arr1[i] * arr2[i+j];
+                    }
+                    if(result > max) {
+                        max = result;
+                    }
+                 
+                }
+            }
+            else if( a> b) {
+                for(int j = 0; j < a-b+1; j++) {
+                    result = 0;
+                    for(int i =0; i<b; i++) {
+                         result += arr1[i+j] * arr2[i];
+                    }
+                    if(result > max) {
+                        max = result;
+                    }
+                 
+                }
+            }
+             
+            System.out.println("#"+t+" "+max);
+             
+                 
+             
+             
+            }
+         
+    }
+}
