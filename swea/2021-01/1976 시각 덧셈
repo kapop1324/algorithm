@@ -1,0 +1,35 @@
+
+class Solution
+{
+    public static void main(String args[]) throws Exception
+    {
+          
+        Scanner sc = new Scanner(System.in);
+        int test = sc.nextInt();
+        for(int t = 1; t <= test; t++) {
+         
+            int hour1 = sc.nextInt();
+            int min1 = sc.nextInt();
+            int hour2 = sc.nextInt();
+            int min2 = sc.nextInt();
+                 
+            int result_hour;
+            int result_min;
+             
+            result_hour = hour1 + hour2;
+            result_min = min1+min2;
+            if(result_min>=60) {
+                result_hour++;
+                result_min-=60;
+            }
+            if(result_hour>12) {
+                result_hour -= 12;
+            }
+             
+             
+            System.out.println("#" + t+" "+result_hour+" "+result_min);
+        }
+         
+        
+    }
+}
