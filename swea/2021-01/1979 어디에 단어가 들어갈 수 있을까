@@ -1,0 +1,68 @@
+
+class Solution
+{
+    public static void main(String args[]) throws Exception
+    {
+         
+        Scanner sc = new Scanner(System.in);
+         
+        int tc = sc.nextInt();
+         
+        for(int t =1 ; t<=tc; t++) {
+ 
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            int cnt = 0;
+            int result = 0;
+             
+            int arr[][] = new int[n][n];
+             
+            for(int i = 0; i < n; i++) {
+                for(int j = 0; j < n; j++) {
+                    arr[i][j] = sc.nextInt();
+                }
+            }
+            for(int i = 0; i < n; i++) {
+                cnt = 0;
+                for(int j = 0; j < n; j++) {
+                    if(arr[i][j] == 1) {
+                        cnt++;
+                    }
+                    if(arr[i][j] == 0 && cnt == k) {
+                        result++;
+                        cnt = 0;
+                    }
+                    else if(arr[i][j] == 0) {
+                        cnt = 0;
+                    }
+                    if(j==n-1 && cnt == k) {
+                        result++;
+                    }
+                     
+                }
+                 
+            }
+            for(int i = 0; i < n; i++) {
+                cnt = 0;
+                for(int j = 0; j < n; j++) {
+                    if(arr[j][i] == 1) {
+                        cnt++;
+                    }
+                    if(arr[j][i] == 0 && cnt == k) {
+                        result++;
+                        cnt = 0;
+                    }
+                    else if(arr[j][i] == 0) {
+                        cnt = 0;
+                    }
+                    if(j==n-1 && cnt == k) {
+                        result++;
+                    }
+                     
+                }
+                 
+            }
+            System.out.println("#"+t+" "+result);
+        }
+    }
+}
