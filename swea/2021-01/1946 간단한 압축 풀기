@@ -1,0 +1,52 @@
+
+class Solution
+{
+    public static void main(String args[]) throws Exception
+    {
+         
+        Scanner sc = new Scanner(System.in);
+         
+         
+         
+        int tc = sc.nextInt();
+         
+        for(int t = 1 ; t <= tc; t++) {
+             
+             
+                int n = sc.nextInt();
+                 
+                String a[] = new String[n];
+                int b[] = new int[n];
+                 
+                int cnt = 0;
+                 
+                 
+                for(int i = 0; i < n; i++) {
+                     
+                    a[i] = sc.next();
+                    b[i] = sc.nextInt();
+                     
+                }
+                System.out.println("#"+t);
+                for(int i = 0; i < n; i++) {
+                     
+                 
+                     
+                    for(int j = 0; j < b[i]; j++) {
+                        System.out.print(a[i]);
+                        cnt ++;
+                         
+                        if(cnt == 10) {
+                            System.out.println();
+                            cnt = 0;
+                        }
+                    }
+                     
+                }
+                 
+                 
+                System.out.println();
+                 
+        }
+    }
+}
