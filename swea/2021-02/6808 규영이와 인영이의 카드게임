@@ -1,0 +1,87 @@
+import java.io.*;
+import java.util.*;
+  
+public class Solution {
+     
+     
+ 
+    static int[] gyu_card;
+    static boolean[] gyu_check;
+    static int[] in_newcard;
+    static int[] in_card;
+    static int gyu_win;
+    static int in_win;
+     
+    public static void main(String[] args)  {
+         
+        Scanner sc = new Scanner(System.in);
+         
+        int tc = sc.nextInt();
+         
+        for(int t = 1; t <= tc; t++) {
+            boolean[] card = new boolean[19];
+            gyu_card = new int[9];
+            in_card = new int[9];
+            gyu_check = new boolean[9];
+            in_newcard = new int[9];
+            gyu_win = 0;
+            in_win = 0;
+             
+            for(int i = 0; i < 9; i++) {
+                gyu_card[i] = sc.nextInt();
+                card[gyu_card[i]] = true; 
+            }
+             
+            int idx = 0;
+            for(int i = 1; i < 19; i++) {
+                if(card[i] == false) {
+                    in_card[idx] = i;
+                    idx++;
+                }
+            }
+             
+            dfs(0);
+             
+             
+            System.out.println("#"+t+" "+gyu_win+" "+in_win);
+         
+         
+        }
+         
+    }
+     
+    public static void dfs(int cnt) {
+         
+        if(cnt == 9) {
+             
+            int gyu = 0;
+            int in = 0;
+            for(int i = 0; i < 9; i++) {
+                if(in_newcard[i] < gyu_card[i]) {
+                    gyu += in_newcard[i] + gyu_card[i];
+                }
+                else {
+                    in += in_newcard[i] + gyu_card[i];
+                }
+            }
+            if(gyu > in) {
+                gyu_win++;
+            }
+            else {
+                in_win++;
+            }
+             
+            return;
+        }
+         
+        for(int i = 0; i < 9; i++) {
+            if(gyu_check[i] == false) {
+                gyu_check[i] = true;
+                in_newcard[cnt] = in_card[i];
+                dfs(cnt+1);
+                gyu_check[i] = false;
+            }
+        }
+         
+    }
+}
