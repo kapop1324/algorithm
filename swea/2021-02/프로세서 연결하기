@@ -1,0 +1,140 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+  
+public class Solution {
+     
+    static int[] dx = {0,0,-1,1};
+    static int[] dy = {-1,1,0,0};
+    static int n;
+    static int[][] arr;
+    static ArrayList<int[]> list;
+    static int max;
+    static int min;
+     
+     
+    public static void main(String[] args) throws IOException {
+       
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st ;
+        int tc = Integer.parseInt(br.readLine().trim());
+         
+        for(int t = 1; t <= tc; t++) {
+             
+            n = Integer.parseInt(br.readLine().trim());
+            arr = new int[n][n];
+            list = new ArrayList<>();
+             
+            for(int i = 0; i < n; i++) {
+                 
+                st = new StringTokenizer(br.readLine()," ");
+                 
+                for(int j = 0; j < n; j++) {
+                    arr[i][j] = Integer.parseInt(st.nextToken());
+                    if(arr[i][j] == 1) {
+                        if( i - 1 < 0 || j -1 < 0 || i + 1 >= n || j + 1 >= n) {
+                            continue;
+                        }
+                        list.add(new int[] {i,j});
+                    }
+                }
+            }
+         
+             
+             
+             
+            max = Integer.MIN_VALUE;
+            min = Integer.MAX_VALUE;
+             
+            dfs(0,0,0);
+             
+            System.out.println("#"+t+" "+min);
+         
+         
+        }
+         
+         
+         
+    }
+     
+    public static void dfs(int idx, int core, int length) {
+         
+        if(idx == list.size()) {
+             
+            if(max < core) {
+                max = core;
+                min = length;
+            }
+            else if(max == core) {
+                if(min > length) {
+                    min = length;
+                }
+            }
+             
+            return;
+        }
+         
+        int x = list.get(idx)[0];
+        int y = list.get(idx)[1];
+         
+         
+         
+        for(int i = 0; i < 4 ; i++) {
+             
+            int nx = x;
+            int ny = y;
+            int cnt = 0;
+            int ox = x;
+            int oy = y;
+            while(true) {
+                nx +=  dx[i];
+                ny +=  dy[i];
+                 
+                if(nx < 0 || ny < 0 || nx >= n || ny >= n) {
+                    break;
+                }
+                 
+                if(arr[nx][ny] == 1) {
+                    cnt = 0;
+                    break;
+                }
+                     
+                cnt++;
+                 
+            }   
+                 
+                for(int j = 0; j < cnt; j++) {
+                    ox += dx[i];
+                    oy += dy[i];
+                    arr[ox][oy] = 1;
+                }
+                 
+                if(cnt == 0) {
+                    dfs(idx+1,core,length);
+                }
+                else {
+                    dfs(idx+1,core+1,length+cnt);
+                     
+                    ox = x;
+                     oy = y;
+                     
+                    for(int j = 0; j < cnt; j++) {
+                        ox += dx[i];
+                        oy += dy[i];
+                        arr[ox][oy] = 0;
+                    }
+                }
+                 
+             
+             
+             
+             
+        }
+         
+         
+    }
+  
+}
