@@ -1,0 +1,65 @@
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Scanner;
+ 
+public class Solution {
+ 
+    public static void main(String[] args) {
+     
+        Scanner sc = new Scanner(System.in);
+         
+        int tc = sc.nextInt();
+         
+        for(int t = 1; t <= tc; t++) {
+             
+         
+            // n명만 준다
+            int n = sc.nextInt();
+             
+            // m초의 시간을 들이면 k개의 붕어빵을 만든다
+            int m = sc.nextInt();
+            int k = sc.nextInt();
+             
+            boolean result = true;
+            int bread = 0;
+            //오는 시간
+            int[] arr = new int[n];
+             
+            for(int i = 0; i < arr.length; i++) {
+                arr[i] = sc.nextInt();
+            }
+             
+            Arrays.sort(arr);
+             
+             
+            for(int i = 0; i <= arr[n-1]; i++) {
+                 
+                if(i%m == 0 && i>0) {
+                    bread += k;
+                }
+                for(int j = 0; j <arr.length; j++) {
+                    if(arr[j] == i) {
+                        if(bread == 0) {
+                            result = false;
+                            break;
+                        }
+                        else {
+                            bread--;
+                        }
+                     
+                    }
+                }
+                 
+                 
+            }
+             
+            if(result == true) {
+                System.out.println("#"+t+" Possible");
+            }
+            else {
+                System.out.println("#"+t+" Impossible");
+            }
+             
+        }
+    }
+}
