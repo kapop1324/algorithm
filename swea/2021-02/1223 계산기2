@@ -1,0 +1,55 @@
+import java.util.Scanner;
+import java.util.Stack;
+ 
+   
+class Solution
+{
+        
+    
+    public static void main(String[] args) {
+        
+        Scanner sc = new Scanner(System.in);
+          
+        //int tc = sc.nextInt();
+        
+        for(int t = 1; t<=10; t++) {
+           int n = sc.nextInt();
+            
+           String s = sc.next();
+            
+           Stack<Integer> number = new Stack<>();
+           Stack<Character> operator = new Stack<>();
+            
+           for(int i = 0; i <n; i++) {
+               if(s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+                   number.push(s.charAt(i)-'0');
+               }
+               else if(s.charAt(i) == '+') {
+                   operator.push(s.charAt(i));
+               }
+               else if(s.charAt(i) == '*') {
+                   int tmp = number.pop();
+                   number.push(tmp * (s.charAt(i+1)-'0'));
+                   i++;
+               }
+           }
+           while(!operator.isEmpty()) {
+               operator.pop();
+               int tmp1 = number.pop();
+               int tmp2 = number.pop();
+               number.push(tmp1 + tmp2);
+           }
+         
+           
+        System.out.println("#"+t+" "+number.pop());
+               
+             
+             
+        }
+           
+            
+    }
+      
+       
+      
+}
