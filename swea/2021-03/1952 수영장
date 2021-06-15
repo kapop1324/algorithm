@@ -1,0 +1,64 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+public class Solution {
+     
+    static int result;
+    static int m,m3,d;
+    static int[] month;
+    public static void main(String[] args) throws Exception {
+         
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+         
+        int tc = Integer.parseInt(br.readLine());
+        for(int t = 1; t <= tc; t++) {
+             
+            st = new StringTokenizer(br.readLine()," ");
+             
+             d = Integer.parseInt(st.nextToken());
+             m = Integer.parseInt(st.nextToken());
+             m3 = Integer.parseInt(st.nextToken());
+             result = Integer.parseInt(st.nextToken());
+             
+            month = new int[12]; 
+             
+            st = new StringTokenizer(br.readLine()," ");
+            for(int i = 0; i < 12; i++) {
+                month[i] = Integer.parseInt(st.nextToken());
+            }
+             
+            dfs(0,0);
+             
+            System.out.println("#"+t+" "+result);
+         
+        }
+             
+         
+    }
+     
+    public static void dfs(int idx,int price) {
+     
+        if(idx >= 12) {
+             
+            if(price < result ) {
+                result = price;
+            }
+             
+             
+            return;
+        }
+         
+        if(month[idx] == 0) {
+            dfs(idx+1,price);
+        }else {
+            int day = month[idx] * d;
+            dfs(idx+1,price+day);
+            dfs(idx+1,price+m);
+            dfs(idx+3,price+m3);
+        }
+         
+    }
+ 
+}
