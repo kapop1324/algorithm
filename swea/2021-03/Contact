@@ -1,0 +1,74 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+  
+public class Solution {
+    
+    static int[][] arr;
+    static int[] visit;
+    static int length, start, result;
+     
+    public static void main(String[] args) throws Exception {
+          
+        Scanner sc = new Scanner(System.in);
+          
+       // int tc = Integer.parseInt(br.readLine());
+        for(int t = 1; t <= 10; t++) {
+  
+            length = sc.nextInt();
+            start = sc.nextInt();
+            arr = new int[100][100];
+            result = 0;
+             
+            for(int i = 0; i < length/2; i++) {
+                 
+                arr[sc.nextInt()-1][sc.nextInt()-1] = 1;
+  
+            }
+             
+            bfs(start);
+         
+           
+            System.out.println("#"+t+" "+result);
+          
+        }
+              
+          
+    }
+      
+    public static void bfs(int start) {
+          
+        Queue<Integer> q = new LinkedList<>();
+        visit = new int[100];
+        int last = 0;
+        visit[start-1] = 1;
+        q.add(start-1);
+         
+        while(!q.isEmpty()) {
+             
+            int tmp = q.poll();
+             
+            for(int i = 0; i < 100; i++) {
+                if(arr[tmp][i] == 1 && visit[i] == 0) {
+                    visit[i] += visit[tmp] + 1;
+                    q.add(i);
+                }
+            }
+            last = visit[tmp];
+             
+             
+        }
+         
+        for(int i = 0; i <100; i++) {
+            if(visit[i] == last) {
+                result = Math.max(result, i);
+            }
+        }
+         
+       result += 1;
+    }
+  
+}
