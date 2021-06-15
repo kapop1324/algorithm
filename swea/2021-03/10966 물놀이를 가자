@@ -1,0 +1,59 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+  
+class Solution
+{
+    static int n,m;
+    static char[][] arr;
+    static int[][] visit;
+    static int[] dx = { 1, -1, 0, 0 };
+    static int[] dy = { 0, 0, 1, -1 };
+    public static void main(String args[]) throws Exception
+    {
+        Scanner sc = new Scanner(System.in);
+  
+        int T = Integer.parseInt(sc.next());
+        for (int t = 1; t <= T; t++) {
+            n = Integer.parseInt(sc.next());
+            m = Integer.parseInt(sc.next());
+            arr = new char[n][m];
+            visit = new int[n][m];
+  
+            Queue<int[]> queue = new LinkedList<>();
+            for (int i = 0; i < n; i++) {
+                String s = sc.next();
+                for (int j = 0; j < m; j++) {
+                    if (s.charAt(j) == 'W') {
+                        queue.offer(new int[] {i,j});
+                        visit[i][j]=1;
+                    } 
+                }
+            }
+            int x,y,nx,ny;
+            while(!queue.isEmpty()) {
+                int[] a = queue.poll();
+                x = a[0];
+                y = a[1];
+                for(int i=0;i<4;i++) {
+                    nx = x + dx[i];
+                    ny = y + dy[i];
+                    if (nx < 0 || nx >= n || ny < 0 || ny >= m || visit[nx][ny] != 0)
+                        continue;
+                    queue.offer(new int[] {nx,ny});
+                    visit[nx][ny] = visit[x][y] + 1;
+                }
+            }
+            int res = 0;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                     
+                    res += visit[i][j];
+                }
+                
+            }
+            res = res-(n*m);
+            System.out.println("#" + t + " " + res);
+        }
+    }
+}
