@@ -1,0 +1,50 @@
+import java.util.Scanner;
+   
+class Solution
+{
+       
+   
+     
+       
+    public static void main(String[] args) {
+       
+        Scanner sc = new Scanner(System.in);
+           
+           
+           
+           
+        int tc = sc.nextInt();
+           
+        for(int t = 1 ; t <= tc; t++) {
+           
+        //전체 학생 수
+        int a = sc.nextInt();
+        //낸사람 수
+        int b = sc.nextInt();
+         
+        int[] arr = new int[a];
+         
+        for(int i = 0; i < b; i++) {
+            int c = sc.nextInt();
+            arr[c-1] = 1;
+        }
+        System.out.print("#"+t+" ");
+        for(int i = 0; i < a; i++) {
+            if(arr[i] == 0) {
+                 
+                System.out.print((i+1)+" ");
+            }
+             
+        }
+        System.out.println();
+        
+        
+        
+        }
+                
+          
+           
+    }
+      
+     
+}
