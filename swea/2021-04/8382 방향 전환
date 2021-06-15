@@ -1,0 +1,18 @@
+import java.io.*;
+import java.util.*;
+  
+public class Solution {    
+    public static void main(String[] args) throws Exception {
+         Scanner sc = new Scanner(System.in);
+         int tc = sc.nextInt();
+         for (int t = 1; t <= tc; t++) {
+             int x = sc.nextInt();
+             int y = sc.nextInt();
+             int dx = Math.abs(sc.nextInt() - x);
+             int dy = Math.abs(sc.nextInt() - y);
+             int d = Math.max(dx, dy);
+             int ans =  Math.abs(dx - dy) % 2 == 0 ?  d * 2 : d *2 -1;
+             System.out.println("#"+t+" "+ans);
+         }
+    }
+}
