@@ -1,0 +1,48 @@
+
+public class Solution {
+     
+    static int count;
+    static int result;
+    static int a;
+    static int b;
+     
+    public static void main(String[] args) {
+      
+        Scanner sc = new Scanner(System.in);
+ 
+        for(int t =1 ; t<=10; t++) { 
+         
+        int ta = sc.nextInt();
+         
+        a = sc.nextInt();
+        b = sc.nextInt();
+        result = 1;
+        count = 0;
+         
+        System.out.print("#" + t + " ");
+        pow(result, count);
+         
+         
+         
+         
+         
+        }    
+  }
+     
+    public static void pow(int result, int count) {
+         
+        if(count == b) {
+            System.out.println(result);
+            return;
+        }
+         
+        result *= a;
+         
+        count++;
+         
+        pow(result,count);
+         
+    }
+}
+     
+    
