@@ -1,0 +1,73 @@
+import java.io.*;
+import java.util.*;
+  
+public class Solution {
+     
+    static boolean[] people;
+    static int min;
+    static int company_x;
+    static int company_y;
+    static int home_x;
+    static int home_y;
+    static int n;
+    static LinkedList<int[]> list;
+     
+    public static void main(String[] args)  {
+         
+        Scanner sc = new Scanner(System.in);
+         
+        int tc = sc.nextInt();
+         
+        for(int t = 1; t <= tc; t++) {
+             
+            n = sc.nextInt();
+            min = 10000;
+            people = new boolean[n];
+             
+             
+             company_x = sc.nextInt();
+             company_y = sc.nextInt();
+              
+         
+              
+             home_x = sc.nextInt();
+             home_y = sc.nextInt();
+              
+    
+             
+             list = new LinkedList<>();
+            for(int i = 0; i < n; i++) {
+                int people_x = sc.nextInt();
+                int people_y = sc.nextInt();
+                list.add(new int[] {people_x,people_y});
+                 
+            }
+             
+            search(company_x,company_y,0,0);
+            System.out.println("#"+t+" "+min);
+        }
+         
+    }
+     
+    public static void search(int x, int y, int sum, int idx) {
+         
+        if(idx == n) {
+            sum += Math.abs(x-home_x)+Math.abs(y-home_y);
+            min = Math.min(sum, min);
+         
+            return;
+        }
+        for(int i = 0; i< n; i++) {
+             
+            if(!people[i]) {
+                people[i] = true;
+                 
+                search(list.get(i)[0], list.get(i)[1], sum+ Math.abs(x-list.get(i)[0])+Math.abs(y-list.get(i)[1]), idx+1);
+                people[i] = false;
+            }
+             
+        }
+         
+         
+    }
+}
