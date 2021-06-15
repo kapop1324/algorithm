@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String s = br.readLine();
+		String t = br.readLine();
+		
+		int idx = t.length()-1;
+		
+		while(idx > s.length()-1) {
+
+			
+			if(t.charAt(idx) == 'A') {
+				t = t.substring(0,idx);
+				idx--;
+			}else if(t.charAt(idx) == 'B') {
+				t = t.substring(0,idx);
+				
+				idx--;
+				String tmp = "";
+				for(int i = idx; i >= 0; i--) {
+					tmp += t.charAt(i);
+				}
+				t = tmp;
+			
+			}
+			
+		}
+		
+		if(s.equals(t)) {
+			System.out.println(1);
+		}else {
+			System.out.println(0);
+		}
+
+	}
+	    
+	 
+	
+	
+}
+
