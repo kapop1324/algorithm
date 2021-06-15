@@ -1,0 +1,74 @@
+import java.util.Scanner;
+ 
+public class Solution {
+ 
+    public static void main(String[] args) {
+         
+        Scanner sc = new Scanner(System.in);
+         
+        for(int t = 1; t<=10; t++) {
+            String[][] arr = new String[8][8];
+             
+            int n = sc.nextInt();
+             
+            int count = 0;
+             
+             
+            for(int i = 0; i<8; i++) {
+                String s = sc.next();
+                for(int j = 0; j<8; j++) {
+                    arr[i][j] = s.substring(j,j+1);
+                }
+            }
+             
+            for(int i = 0; i<8; i++) {
+                for(int j = 0; j<9-n; j++) {
+                     
+                    String up = "";
+                    String down = "";
+                     
+                    for(int k = 0; k < n/2; k++) {
+                         
+                            up += arr[i][j+k];
+ 
+                    }
+                    for(int k = n-1; k >= n-n/2; k--) {
+                        down += arr[i][j+k];
+                    }
+                    if(up.equals(down)) {
+                        count++;
+                    }
+                }
+                 
+            }
+             
+            for(int i = 0; i<8; i++) {
+                for(int j = 0; j<9-n; j++) {
+                     
+                    String up = "";
+                    String down = "";
+                     
+                    for(int k = 0; k < n/2; k++) {
+                         
+                            up += arr[j+k][i];
+                         
+                         
+                         
+                    }
+                    for(int k = n-1; k >= n-n/2; k--) {
+                        down += arr[j+k][i];
+                    }
+                    if(up.equals(down)) {
+                        count++;
+                    }
+                }
+                 
+            }
+             
+            System.out.println("#"+t+" "+count);
+             
+        }
+ 
+    }
+ 
+}
