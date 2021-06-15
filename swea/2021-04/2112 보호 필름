@@ -1,0 +1,120 @@
+import java.io.*;
+import java.util.*;
+  
+public class Solution {
+    static int d, w, k, result;
+    static int[][] map;
+    static int[][] copy;
+    static int[] arr;
+ 
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        
+        int tc = Integer.parseInt(br.readLine());
+         
+        for(int t =1; t <= tc; t++) {
+            st = new StringTokenizer(br.readLine()," ");
+            d = Integer.parseInt(st.nextToken());
+            w = Integer.parseInt(st.nextToken());
+            k = Integer.parseInt(st.nextToken());
+             
+            map = new int[d][w];
+            copy = new int[d][w];
+            arr = new int[d];
+             
+            result = d;
+             
+            for(int i = 0; i < d; i++) {
+                st = new StringTokenizer(br.readLine()," ");
+                for(int j = 0; j < w; j++) {
+                    map[i][j] = Integer.parseInt(st.nextToken());
+                    copy[i][j] = map[i][j];
+                }
+            }
+             
+            if(check() == true) {
+                System.out.println("#"+t+" "+0);
+            }else {
+                dfs(0,0);
+                System.out.println("#"+t+" "+result);
+            }
+             
+             
+             
+             
+        }
+ 
+    
+         
+    }
+  
+    public static void dfs(int idx, int cnt) {
+        
+        if(cnt > result) {
+            return;
+        }
+         
+        if(idx == d) {
+             
+            for(int i = 0; i < d; i++) {
+                for(int j = 0; j < w; j++) {
+                    copy[i][j] = map[i][j];
+                }
+            }
+             
+            for(int i = 0; i < d; i++) {
+                if(arr[i] != 2) {
+                 
+                    Arrays.fill(copy[i], arr[i]);
+                }
+            }
+             
+             
+            if(check() == true){
+                 
+                 
+                 
+                result = Math.min(result, cnt);
+            }
+ 
+            return;
+        }
+         
+        arr[idx] = 1;
+        dfs(idx+1,cnt+1);
+        arr[idx] = 0;
+        dfs(idx+1,cnt+1);
+        arr[idx] = 2;
+        dfs(idx+1,cnt);
+         
+    }
+     
+    public static boolean check() {
+         
+        for(int i = 0; i < w; i++) {
+             
+            boolean flag = false;
+            int cnt = 1;
+            for(int j = 1; j < d; j++) {
+                 
+                if(copy[j][i] == copy[j-1][i]) {
+                    cnt+=1;
+                }else {
+                    cnt = 1;
+                }
+                if(cnt == k) {
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag == false) {
+                return false;
+            }
+             
+        }
+ 
+        return true;
+    }
+     
+}
