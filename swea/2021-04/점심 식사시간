@@ -1,0 +1,138 @@
+import java.io.*;
+import java.util.*;
+  
+public class Solution {
+    static int n, result;
+    static int[][] map;
+    static int[][] copy;
+    static int[] select;
+    static ArrayList<person> people;
+    static int[][] stair;
+    static int people_num;
+ 
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        
+        int tc = Integer.parseInt(br.readLine());
+         
+        for(int t =1; t <= tc; t++) {
+            n = Integer.parseInt(br.readLine());
+             
+            map = new int[n][n];
+            people = new ArrayList<>();
+            stair = new int[2][3];
+            int idx = 0;
+            result = Integer.MAX_VALUE;
+            for(int i = 0; i < n; i++) {
+                st = new StringTokenizer(br.readLine()," ");
+                for(int j = 0; j < n; j++) {
+                    map[i][j] = Integer.parseInt(st.nextToken());
+                    if(map[i][j] == 1) {
+                        people.add(new person(i,j));
+                    }else if(map[i][j] > 1) {
+                        stair[idx][0] = map[i][j];
+                        stair[idx][1] = i;
+                        stair[idx][2] = j;
+                        idx++;
+                    }
+                }
+            }
+             
+             
+             
+            people_num = people.size();
+            select = new int[people_num];
+            dfs(0);
+            System.out.println("#"+t+" "+result);
+             
+             
+        }
+ 
+    
+         
+    }
+  
+    public static void dfs(int idx) {
+       
+        if(idx == people_num) {
+             
+            check();
+             
+            return;
+        }
+         
+        select[idx] = 0;
+        dfs(idx+1);
+        select[idx] = 1;
+        dfs(idx+1);
+         
+         
+    }
+     
+    public static void check() {
+ 
+        int[] dis = new int[people_num];
+        int[][] stairTimeTable = new int[2][200];
+         
+        for(int i = 0; i < people_num; i++) {
+            if(select[i] == 0) {
+                int distance = Math.abs(stair[0][1] - people.get(i).x) + Math.abs(stair[0][2] - people.get(i).y);
+                dis[i] = distance+1;
+            }else  {
+                int distance = Math.abs(stair[1][1] - people.get(i).x) + Math.abs(stair[1][2] - people.get(i).y);
+                dis[i] = distance+1;
+            }
+        }
+         
+         
+        PriorityQueue<Integer>[] q = new PriorityQueue[2];
+        q[0] = new PriorityQueue<>();
+        q[1] = new PriorityQueue<>();
+         
+        for(int i = 0; i < people_num; i++) {
+            q[select[i]].offer(dis[i]);
+        }
+         
+        int max = 0;
+         
+        for(int i = 0; i < 2; i++) {
+            int to = 0;
+             
+            while(!q[i].isEmpty()) {
+                 
+                int from = q[i].poll();
+                to = from + stair[i][0];
+                 
+                for(int j = from; j< to; j++) {
+                    if(stairTimeTable[i][j] == 3) {
+                        to++;
+                        continue;
+                    }
+                    stairTimeTable[i][j]++;
+                }
+                 
+            }
+            if(max < to) {
+                max = to;
+            }
+        }
+         
+        if(result > max) {
+            result = max;
+        }
+         
+         
+    }
+     
+    
+     
+}
+ 
+class person{
+    int x, y;
+    person(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+}
