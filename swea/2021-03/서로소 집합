@@ -1,0 +1,79 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+  
+public class Solution {
+    
+    static int[][] arr;
+    static int[] visit;
+    static int length, start, result;
+     
+    static int n,m;
+    static int[] parent;
+     
+    public static void main(String[] args) throws Exception {
+          
+        Scanner sc = new Scanner(System.in);
+        
+        int tc = sc.nextInt();
+        for(int t = 1; t <= tc; t++) {
+             StringBuilder sb = new StringBuilder(); 
+             n = sc.nextInt();
+             m = sc.nextInt();
+            sb.append("#"+t+" ");
+            parent = new int[n];
+             
+            make();
+             
+             
+             
+            for(int i = 0; i < m; i++) {
+                int c = sc.nextInt();
+                int a = sc.nextInt()-1;
+                int b = sc.nextInt()-1;
+                 
+                if(c == 0) {
+                    union(a,b);
+                }
+                else if(c == 1) {
+                    if(findSet(a) == findSet(b)) {
+                        sb.append("1");
+                    }else {
+                        sb.append("0");
+                    }
+                }
+                 
+            }
+            System.out.println(sb);
+          
+        }
+              
+          
+    }
+     
+    static void make() {
+        for(int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+    }
+     
+    static int findSet(int a) {
+        if(parent[a] == a) return a;
+         
+        return parent[a] = findSet(parent[a]);
+    }
+     
+    static boolean union(int a, int b) {
+        int ar = findSet(a);
+        int br = findSet(b);
+        if(ar == br) return false;
+         
+        parent[br] = ar;
+        return true;
+    }
+     
+  
+}
