@@ -1,0 +1,159 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+ 
+public class Solution {    
+  
+    static int[][] map;
+    static int[] dx = {0,0,1,0,-1};
+    static int[] dy = {0,-1,0,1,0};
+    static int m;
+    static int a;
+    static int[][] move; 
+    static bc[] bc_list;
+     
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        map = new int[11][11];
+         
+        int tc = Integer.parseInt(br.readLine());
+        StringTokenizer st;
+        for(int t = 1; t <= tc; t++) {
+             
+            st = new StringTokenizer(br.readLine()," ");
+            m = Integer.parseInt(st.nextToken());
+            a = Integer.parseInt(st.nextToken());
+            move = new int[2][m+1];
+            bc_list = new bc[a];
+             
+             
+            for(int i = 0; i < 2; i++) {
+                st = new StringTokenizer(br.readLine()," ");
+                for(int j = 1; j <=m; j++) {
+                    move[i][j] =Integer.parseInt(st.nextToken());
+                }
+            }
+             
+            for(int i = 0; i < a; i++) {
+                st = new StringTokenizer(br.readLine());
+                int x = Integer.parseInt(st.nextToken());
+                int y = Integer.parseInt(st.nextToken());
+                int c = Integer.parseInt(st.nextToken());
+                int p = Integer.parseInt(st.nextToken());
+                 
+                bc_list[i] = new bc(x,y,c,p);
+                 
+            }
+             
+            int sum = 0;
+  
+            int ax = 1;
+            int ay = 1;
+            int bx = 10;
+            int by = 10;
+             
+            for(int k =0 ; k <=m; k++) {
+ 
+                 
+                 
+                int nax = ax + dx[move[0][k]];
+                int nay = ay + dy[move[0][k]];
+                 
+                int nbx = bx + dx[move[1][k]];
+                int nby = by + dy[move[1][k]];
+                 
+ 
+                 
+                     
+                    sum += sum_max(nax,nay,nbx,nby);
+                     
+                 
+                 
+                ax = nax;
+                ay = nay;
+                 
+                bx = nbx;
+                by = nby;
+                 
+            }
+            System.out.println("#"+t+" "+sum);
+             
+        }
+        
+         
+ 
+    }
+     
+    public static int sum_max(int ax, int ay, int bx, int by) {
+         
+        int max = 0;
+         
+        for(int i = 0; i < a; i++) {
+            boolean a_check = is_range(ax,ay,i);
+             
+            for(int j = 0; j < a; j++) {
+                boolean b_check = is_range(bx, by, j);
+                int temp = 0;
+                if(a_check == true) {
+                    if(b_check== true) {
+                        if(i == j) {
+                            temp = bc_list[j].p;
+                        }else {
+                            temp = bc_list[i].p + bc_list[j].p;
+                        }
+                    }else {
+                        temp = bc_list[i].p;
+                    }
+                }else {
+                    if(b_check == true) {
+                        temp = bc_list[j].p;
+                    }
+                }
+                max = Math.max(max, temp);
+            }
+        }
+         
+         
+         
+        return max;
+    }
+     
+    public static boolean is_range(int x, int y, int idx) {
+         
+        if((Math.abs(x - bc_list[idx].x) + Math.abs(y-bc_list[idx].y)) <= bc_list[idx].c) {
+            return true;
+        }else {
+            return false;
+        }
+ 
+    }
+     
+    
+ 
+ 
+}
+ 
+class people {
+     
+    int x, y;
+     
+     people(int x, int y) {
+        this.x = x;
+        this.y = y;
+     
+    }
+}
+ 
+class bc {
+     
+    int x, y, c, p;
+     
+     bc(int x, int y, int c, int p) {
+        this.x = x;
+        this.y = y;
+        this.c = c;
+        this.p = p;
+    }
+}
