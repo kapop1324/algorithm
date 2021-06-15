@@ -1,0 +1,155 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+ 
+public class Solution {    
+  
+    static int[][] map;
+    static int n,x; 
+     
+     
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+ 
+        int tc = Integer.parseInt(br.readLine());
+        StringTokenizer st;
+        for(int t = 1; t <= tc; t++) {
+            st = new StringTokenizer(br.readLine()," ");
+            n = Integer.parseInt(st.nextToken());
+            x = Integer.parseInt(st.nextToken());
+            int cnt = 0;
+            int result = 0;
+             
+            map = new int[n][n];
+             
+            for(int i = 0; i < n; i++) {
+                st = new StringTokenizer(br.readLine()," ");
+                for(int j = 0; j < n ; j++) {
+                    map[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
+             
+            for(int i = 0; i < n ; i++) {
+                 
+                if(height(i,false) && slope(i,false)) {
+                        result++;
+                }
+                if(height(i,true) && slope(i,true)) {
+                        result++;   
+                }
+                     
+                 
+            }
+             
+            System.out.println("#"+t+" "+result);
+             
+        }
+        
+         
+ 
+    }
+     
+    public static boolean height(int start, boolean reverse) {
+         
+        int pre;
+         
+        if(reverse) {
+            pre = map[0][start];
+        }else {
+            pre = map[start][0];
+        }
+         
+        for(int i = 1; i < n ; i++) {
+            int now;
+            if(reverse) {
+                now = map[i][start];
+            }else {
+                now = map[start][i];
+            }
+            if(Math.abs(now-pre) > 1) {
+                return false;
+            }
+             
+            if(reverse) {
+                pre = map[i][start];
+            }else {
+                pre = map[start][i];
+            }
+        }
+         
+        return true;
+    }
+     
+    public static boolean slope(int start, boolean reverse) {
+         
+        int cnt = 1;
+        int pre;
+         
+        if(reverse) {
+            pre = map[0][start];
+        }else {
+            pre = map[start][0];
+        }
+         
+        boolean flag = false;
+         
+        for(int i = 1; i < n; i++) {
+             
+            int now;
+            if(reverse) {
+                now = map[i][start];
+            }else {
+                now = map[start][i];
+            }
+             
+            if(now == pre) {
+                cnt++;
+            }else if(now == pre+1) {
+                if(cnt < x) {
+                    return false;
+                }
+                cnt = 1;
+                 
+            }else if(now == pre-1) {
+                 
+                if(flag == false) {
+                    cnt = 1;
+                    flag = true;
+                }else {
+                    if(cnt < x) {
+                        return false;
+                    }
+                    cnt = 1;
+                    flag = true;
+                }
+                 
+            }
+             
+            if(flag == true && cnt == x) {
+                cnt = 0;
+                flag = false;
+            }
+             
+            if(reverse) {
+                pre = map[i][start];
+            }else {
+                pre = map[start][i];
+            }
+             
+        }
+         
+        if(flag == true && cnt < x) {
+            return false;
+        }
+         
+        return true;
+         
+    }
+     
+   
+    
+ 
+ 
+}
