@@ -1,0 +1,89 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Stack;
+ 
+   
+class Solution
+{
+     
+    static boolean[] people;
+    static boolean[][] relation;
+    static int n;
+    static int m;
+    static int cnt;
+     
+    public static void main(String[] args) {
+        
+        Scanner sc = new Scanner(System.in);
+          
+        int tc = sc.nextInt();
+   
+ 
+        
+        
+        for(int t = 1; t<=tc; t++) {
+             
+        n = sc.nextInt();
+        m = sc.nextInt();
+         
+        people = new boolean[n+1];
+        relation = new boolean[n+1][n+1];
+         
+        for(int i = 0; i < m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+             
+            relation[a][b] = true;
+            relation[b][a] = true;
+             
+        }
+        cnt = 0;
+        for(int i = 1; i <= n; i++) {
+             
+            if(people[i] == false) {
+                cnt++;
+             
+                group(i);
+            }
+            else {
+                continue;
+            }
+             
+        }
+                 
+                 
+             
+          
+        System.out.println("#"+t+" "+cnt);
+               
+             
+             
+        }
+           
+            
+    }
+     
+   
+    public static void group(int num) {
+        int cnt_r = 0;
+        if(people[num] == false) {
+            people[num] = true;
+        }
+        for(int i = 1; i <=n; i++) {
+            if(relation[num][i] == true) {
+                relation[num][i] = false;
+                relation[i][num] = false;
+                cnt_r++;
+                group(i);
+            }
+        }
+        if(cnt_r == 0) {
+            return;
+        }
+    }
+     
+    
+      
+}
