@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static class room{
+		int start;
+		int end;
+		
+		public room(int start, int end) {
+			this.start = start;
+			this.end = end;
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int n = Integer.parseInt(st.nextToken());
+		ArrayList<room> list = new ArrayList<>();
+		
+		for (int i = 0; i < n; i++) {
+			st = new StringTokenizer(br.readLine());
+			int t1 = Integer.parseInt(st.nextToken());
+			int t2 = Integer.parseInt(st.nextToken());
+			list.add(new room(t1,t2));
+		}
+		
+		Collections.sort(list, new Comparator<room>() {
+
+			@Override
+			public int compare(room o1, room o2) {
+				
+				if(o1.start == o2.start) {
+					return o1.end - o2.end;
+				}
+				
+				return o1.start - o2.start;
+			}
+		});
+		
+		PriorityQueue<Integer> p = new PriorityQueue<>();
+		p.offer(list.get(0).end);
+		
+		for(int i = 1; i < n; i++) {
+			
+			if(p.peek() <= list.get(i).start) {
+				p.poll();
+			}
+			
+			p.offer(list.get(i).end);
+			
+		}
+		
+		System.out.println(p.size());
+		
+
+	}
+	    
+	 
+	
+	
+}
