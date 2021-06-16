@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int k = Integer.parseInt(st.nextToken());
+		int n = Integer.parseInt(st.nextToken());
+		int max = 0;
+		ArrayList<String> list = new ArrayList<>();
+		
+		for(int i = 0; i < k; i++) {
+			list.add(br.readLine());
+			max = Math.max(Integer.parseInt(list.get(i)), max);
+		}
+		
+		Collections.sort(list, new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+				String s = o1 + o2;
+				return -s.compareTo(o2 + o1);
+			}
+		});
+		
+		String result = "";
+		
+		String tmp = "";
+		
+		boolean flag = false;
+		for(int i = 0; i < k; i++) {
+			result += list.get(i);
+			if(list.get(i).equals(Integer.toString(max)) && flag == false) {
+				for(int j = 0; j < n-k; j++) {
+					result += list.get(i);
+					flag = true;
+				}
+			}
+			
+		}
+	
+		
+		
+		System.out.println(result);
+		
+		
+		
+
+	}
+	    
+	 
+	
+	
+}
