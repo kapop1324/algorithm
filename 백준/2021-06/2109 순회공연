@@ -1,0 +1,70 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static class lecture {
+		int pay;
+		int time;
+		public lecture(int pay, int  time) {
+			this.pay = pay;
+			this.time = time;
+		}
+		
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		
+		int n = Integer.parseInt(br.readLine());
+		int result = 0;
+		
+		PriorityQueue<lecture> pq = new PriorityQueue<>(new Comparator<lecture>() {
+
+			@Override
+			public int compare(lecture o1, lecture o2) {
+				if(o1.pay == o2.pay) {
+					return o1.time - o2.time;
+				}
+				
+				return o2.pay - o1.pay;
+			}
+			
+		});
+		
+		for(int i = 0; i < n; i++) {
+			 st = new StringTokenizer(br.readLine());
+			 pq.add(new lecture(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken())));
+		}
+		
+		boolean[] day = new boolean[10001];
+		
+		while(!pq.isEmpty()) {
+			lecture cur = pq.poll();
+			for(int i = cur.time; i>=1; i--) {
+			
+				if(!day[i]) {
+					
+					result += cur.pay;
+					day[i] = true;
+					break;
+				}
+				
+			}
+			
+			
+			
+		}
+		
+		
+		
+		System.out.println(result);
+
+	}
+	    
+	 
+	
+	
+}
