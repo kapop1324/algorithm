@@ -1,0 +1,76 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine()," ");
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		
+		PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+		PriorityQueue<Integer> nq = new PriorityQueue<>(Collections.reverseOrder());
+		
+		st = new StringTokenizer(br.readLine()," ");
+		
+		int max = 0;
+		
+		for(int i = 0; i < n; i++) {
+			int a = Integer.parseInt(st.nextToken());
+			if(a > 0) {
+				pq.offer(a);
+			}else {
+				nq.offer(Math.abs(a));
+			}
+			max = Math.max(max, Math.abs(a));
+		}
+		
+		int result = 0;
+		
+		while(!pq.isEmpty()) {
+			
+			int cur = pq.poll();
+			
+			for(int i = 0; i < m-1; i++) {
+				pq.poll();
+				
+				if(pq.isEmpty()) {
+					break;
+				}
+			}
+			
+			result += cur * 2;
+		}
+		
+		while(!nq.isEmpty()) {
+			
+			int cur = nq.poll();
+			
+			for(int i = 0; i < m-1; i++) {
+				nq.poll();
+				
+				if(nq.isEmpty()) {
+					break;
+				}
+			}
+			
+			result += cur * 2;
+		}
+		
+		result -= max;
+		
+		System.out.println(result);
+		
+		
+		
+
+	}
+	    
+	 
+	
+	
+}
