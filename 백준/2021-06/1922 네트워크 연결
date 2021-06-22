@@ -1,0 +1,102 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static class node implements Comparable<node>{
+		
+		int start, end, value;
+		
+		public node(int start, int end, int value) {
+			this.start = start;
+			this.end = end;
+			this.value = value;
+		}
+
+		@Override
+		public int compareTo(node o) {
+			
+			return o.value >= this.value ? -1 : 1;
+		}
+		
+	}
+	
+	static int n,m,result = 0;
+	static int[] parent;
+	static PriorityQueue<node> pq = new PriorityQueue<>();
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		
+		n = Integer.parseInt(br.readLine());
+		m = Integer.parseInt(br.readLine());
+		
+		parent = new int[n+1];
+		
+		for(int i = 0; i < n+1; i++) {
+			
+			parent[i] = i;
+			
+		}
+		
+		for(int i = 0; i < m; i++) {
+			
+			st = new StringTokenizer(br.readLine()," ");
+			int s = Integer.parseInt(st.nextToken());
+			int e = Integer.parseInt(st.nextToken());
+			int v = Integer.parseInt(st.nextToken());
+			pq.add(new node(s,e,v));
+						
+		}
+		
+		for(int i = 0; i < m; i++) {
+			
+			node tmp = pq.poll();
+			
+			
+			
+			int a = find(tmp.start);
+			int b = find(tmp.end);
+			
+			if(a == b) {
+				continue;
+			}
+			
+			union(a,b);
+			
+			result += tmp.value;
+			
+		}
+		
+		System.out.println(result);
+		
+	}
+	    
+	public static int find(int a) {
+		
+		if(a == parent[a]) {
+			return a;
+		}
+		
+		parent[a] = find(parent[a]);
+		
+		return parent[a];
+	}
+	
+	public static void union(int a, int b) {
+		
+		int aroot = find(a);
+		int broot = find(b);
+		
+		if(aroot != broot) {
+			parent[broot] = a;
+		}else {
+			return;
+		}
+		
+	}
+	
+	
+}
