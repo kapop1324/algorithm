@@ -1,0 +1,128 @@
+import java.io.*;
+import java.text.DecimalFormat;
+import java.util.*;
+
+public class Main {
+	
+	static class node implements Comparable<node>{
+		
+		int start, end;
+		double weight;
+		
+		public node(int start, int end, double weight) {
+			this.start = start;
+			this.end = end;
+			this.weight = weight;
+		}
+
+		@Override
+		public int compareTo(node o) {
+			
+			return o.weight >= this.weight ? -1 : 1;
+		}
+		
+	}
+	
+	static int n,m;
+	static double result = 0.0;
+	static int[] parent;
+	static ArrayList<node> list = new ArrayList<>();
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine()," ");
+		
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		
+		parent = new int[n+1];
+		
+		for(int i = 0; i < n+1; i++) {
+			
+			parent[i] = i;
+			
+		}
+		
+		node[] node = new node[n+1];
+		
+		for(int i = 1; i <= n; i++) {
+			
+			st = new StringTokenizer(br.readLine()," ");
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+		
+			node[i] = new node(x,y,0);
+						
+		}
+		
+		for(int i = 0; i < m; i++) {
+			st = new StringTokenizer(br.readLine()," ");
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+			
+			union(x,y);
+			
+		}
+		
+		for(int i = 1; i <= n; i++) {
+			for(int j = i + 1; j <=n; j++) {
+				double weight = Math.sqrt(Math.pow(node[i].start - node[j].start, 2) + Math.pow(node[i].end - node[j].end, 2));
+				list.add(new node(i,j,weight));
+			}
+		}
+		
+		Collections.sort(list);
+		
+		
+		for(int i = 0; i < list.size(); i++) {
+			
+			node tmp = list.get(i);
+			
+			
+			
+			int a = find(tmp.start);
+			int b = find(tmp.end);
+			
+			if(a == b) {
+				continue;
+			}
+			
+			union(a,b);
+			
+			result += tmp.weight;
+			
+		}
+		
+		
+		
+		System.out.println(String.format("%.2f", result));
+		
+	}
+	    
+	public static int find(int a) {
+		
+		if(a == parent[a]) {
+			return a;
+		}
+		
+		parent[a] = find(parent[a]);
+		
+		return parent[a];
+	}
+	
+	public static void union(int a, int b) {
+		
+		int aroot = find(a);
+		int broot = find(b);
+		
+		if(aroot != broot) {
+			parent[broot] = a;
+		}else {
+			return;
+		}
+		
+	}
+	
+	
+}
