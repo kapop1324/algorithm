@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+	
+	
+	public static void main(String[] args) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int n = Integer.parseInt(br.readLine());
+		long[][] dp = new long[1001][1001];
+		dp[1][1] = 1;
+		dp[2][1] = 1;
+		dp[2][2] = 1;
+		dp[3][1] = 1;
+		dp[3][2] = 2;
+		dp[3][3] = 1;
+		
+		for(int i = 4; i <= 1000; i++) {
+			
+			for(int j = 2; j < i; j++) {
+				dp[i][j] = (dp[i-1][j-1] + dp[i-2][j-1] + dp[i-3][j-1]) % 1_000_000_009;
+				
+			}
+			
+			dp[i][i] = 1;
+			
+	}
+		
+		for(int i = 0; i < n; i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine()," ");
+			int t = Integer.parseInt(st.nextToken());
+			int t2 = Integer.parseInt(st.nextToken());
+			System.out.println(dp[t][t2]);
+		}
+	
+	}
+	
+}
