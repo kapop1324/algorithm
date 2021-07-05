@@ -1,0 +1,37 @@
+import java.io.*;
+import java.util.*;
+
+
+class Main {
+    private static int r, c, n, count;
+
+    public static void main(String[] args) throws IOException {
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        n = (int)Math.pow(2, Integer.parseInt(st.nextToken()));
+        r = Integer.parseInt(st.nextToken());
+        c = Integer.parseInt(st.nextToken());
+        divide(n, 0, 0);
+    }
+
+    private static void divide(int num, int row, int col) {
+    	
+    	 if (row == r && col == c) {
+             System.out.println(count);
+             System.exit(0);
+         }
+    	
+    	 if(row <= r && r < row+num && col <= c && c < col + num) {
+    		  divide(num / 2, row, col);
+    	      divide(num / 2, row, col + num / 2); 
+    	      divide(num / 2, row + num / 2, col); 
+    	      divide(num / 2, row + num / 2, col + num / 2);
+    	 }else {
+    		 count += num * num;
+    	 }
+    	 
+    	
+      
+       
+    }
+}
