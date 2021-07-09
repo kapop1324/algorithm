@@ -1,0 +1,73 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int n,m,k;
+	static char[][] map;
+	static boolean[][] visit;
+	static int[] dx = {0,0,1,-1};
+	static int[] dy = {1,-1,0,0};
+	static int max = 0;
+	static int cnt = 0;
+	
+    public static void main(String args[]) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine()," ");
+    	
+    	n = Integer.parseInt(st.nextToken());
+    	m = Integer.parseInt(st.nextToken());
+    	k = Integer.parseInt(st.nextToken());
+    	
+    	map = new char[n+1][m+1];
+    	visit = new boolean[n+1][m+1];
+    	
+    	for(int i = 0; i < k; i++) {
+    		st = new StringTokenizer(br.readLine()," ");
+    		int x = Integer.parseInt(st.nextToken());
+    		int y = Integer.parseInt(st.nextToken());
+    		map[x][y] = '#';
+    	}
+    	
+    	for(int i = 1; i <= n; i++) {
+    		for(int j = 1; j <= m; j++) {
+    			
+    			if(map[i][j] == '#' && visit[i][j] == false) {
+    				visit[i][j] = true;
+        			cnt = 1;
+        			dfs(i,j);
+        			max = Math.max(max, cnt);
+    			}
+    			
+    		}
+    	}
+    	
+    	System.out.println(max);
+    	
+    	
+    }
+    
+    public static void dfs(int x, int y) {
+    	
+    	for(int i = 0; i < 4; i++) {
+    		
+    		int nx = x + dx[i];
+    		int ny = y + dy[i];
+    		
+    		if(nx < 1 || ny < 1 || nx > n || ny > m) continue;
+    		if(map[nx][ny] != '#' || visit[nx][ny] == true) continue;
+    		
+    		cnt++;
+    		visit[nx][ny] = true;
+    		
+    		dfs(nx,ny);
+    		
+    	}
+    	
+    	
+    }
+    
+   
+    
+}
