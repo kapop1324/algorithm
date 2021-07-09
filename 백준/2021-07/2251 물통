@@ -1,0 +1,75 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int a, b, c;
+	static boolean[][] visit = new boolean[201][201];
+	static boolean[] result = new boolean[201];
+	
+    public static void main(String args[]) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine()," ");
+    	
+    	a = Integer.parseInt(st.nextToken());
+    	b = Integer.parseInt(st.nextToken());
+    	c = Integer.parseInt(st.nextToken());
+    	
+    	dfs(0,0,c);
+    	
+    	
+    	for(int i = 0; i < result.length; i++) {
+    		if(result[i] == true) {
+    			System.out.print(i+" ");
+    		}
+    	}
+
+    	
+    }
+    
+    public static void dfs(int aa, int bb, int cc) {
+    	
+    	if(visit[aa][bb]) {
+    		return;
+    	}
+    	
+    	if(aa == 0) {
+    		result[cc] = true;
+    	}
+    	
+    	visit[aa][bb] = true;
+    	
+    	if(aa + bb > b) {
+    		dfs(aa+bb-b,b,cc);
+    	}else {
+    		dfs(0,aa+bb,cc);
+    	}
+    	
+    	if(aa + bb > a) {
+    		dfs(a,aa+bb-a,cc);
+    	}else {
+    		dfs(aa+bb,0,cc);
+    	}
+    	
+    	if(cc + aa > a) {
+    		dfs(a,bb,cc+aa-a);
+    	}else {
+    		dfs(cc+aa,bb,0);
+    	}
+    	
+    	if(cc + bb > b) {
+    		dfs(aa,b,cc+bb-b);
+    	}else {
+    		dfs(aa,cc+bb,0);
+    	}
+    	
+    	dfs(aa,0,bb+cc);
+    	dfs(0,bb,aa+cc);
+    	
+    	
+    }
+    
+   
+    
+}
