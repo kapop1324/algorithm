@@ -1,0 +1,87 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int t,a,b;
+	static boolean[] visit;
+	
+	
+    public static void main(String args[]) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	t = Integer.parseInt(br.readLine());
+    	
+    	for(int i = 0; i < t; i++) {
+    		StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        	a = Integer.parseInt(st.nextToken());
+        	b = Integer.parseInt(st.nextToken());
+        	visit = new boolean[100001];
+        	bfs(a);
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    }
+    
+    public static void bfs(int num) {
+    	
+    	Queue<node> q = new LinkedList<>();
+    	q.add(new node(num,""));
+    	visit[num] = true;
+
+    	
+    	while(!q.isEmpty()) {
+    		node cur = q.poll();
+    		
+    		if(cur.point == b) {
+    			System.out.println(cur.command);
+    			return;
+    		}
+    		
+    		int d = (cur.point * 2) % 10000;
+    		int s = cur.point == 0 ? 9999 : cur.point -1;
+    		int l = cur.point % 1000 * 10 + cur.point / 1000;
+    		int r = cur.point % 10 * 1000 + cur.point / 10;
+    		
+    		if(visit[d] == false) {
+    			q.add(new node(d,cur.command+"D"));
+    			visit[d] = true;
+    		}
+    		
+			if(visit[s] == false) {
+				q.add(new node(s,cur.command+"S"));		
+				visit[s] = true;
+			}
+			
+			if(visit[l] == false) {
+				q.add(new node(l,cur.command+"L"));
+				visit[l] = true;
+			}
+			
+			if(visit[r] == false) {
+				q.add(new node(r,cur.command+"R"));
+				visit[r] = true;
+			}
+    		
+    		
+
+    	}
+    	
+    	
+    	
+    	
+    }   
+    static class node{
+		int point;
+		String command;
+		node(int point, String command){
+			this.point = point;
+			this.command = command;
+		}
+	}
+}
