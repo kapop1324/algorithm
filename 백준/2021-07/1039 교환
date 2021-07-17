@@ -1,0 +1,97 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int n,k;
+	static boolean visit[][] = new boolean[1000001][11];
+	
+	
+    public static void main(String args[]) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	
+    	StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        
+    	n = Integer.parseInt(st.nextToken());
+    	k = Integer.parseInt(st.nextToken());
+
+        bfs(n);
+
+    }
+    
+    public static void bfs(int num) {
+    	
+    	Queue<node> q = new LinkedList<>();
+    	q.add(new node(num,0));
+    	visit[num][0] = true;
+
+    	
+    	while(!q.isEmpty()) {
+    		
+    		if(q.peek().cnt == k) {
+    			break;
+    		}
+    		
+    		node cur = q.poll();
+    		
+    		for(int i = 0; i < Integer.toString(num).length()-1; i++) {
+    			for(int j = i+1; j < Integer.toString(num).length(); j++) {
+    				
+    				int next = swap(cur.num, i, j);
+    				
+    				if(next != -1 && visit[next][cur.cnt+1] == false) {
+    					visit[next][cur.cnt+1] = true;
+    					q.add(new node(next,cur.cnt+1));
+    				}
+    				
+    			}
+    		}
+    		
+    		
+
+    	}
+    	
+    	int result = -1;
+    	
+    	while(!q.isEmpty()) {
+    		
+    		node cur = q.poll();
+    		
+    		result = Math.max(result, cur.num);
+    		
+    	}
+    	
+    	System.out.println(result);
+    	
+    	
+    	
+    }  
+    
+    public static int swap(int num, int i, int j) {
+    	
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(num);
+    	
+    	if(i== 0 && sb.charAt(j) == '0') {
+    		return -1;
+    	}
+    	
+    	char temp = sb.charAt(i);
+    	sb.setCharAt(i, sb.charAt(j));
+    	sb.setCharAt(j, temp);
+    	
+    	return Integer.parseInt(sb.toString());
+    }
+    
+
+}
+
+ class node{
+	int num;
+	int cnt;
+	node(int num, int cnt){
+		this.num = num;
+		this.cnt = cnt;
+	}
+}
