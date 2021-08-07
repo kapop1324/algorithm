@@ -1,0 +1,123 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static class node{
+		int start;
+		int end;
+		
+		public node(int start, int end) {
+			this.start = start;
+			this.end = end;
+		}
+		
+	}
+	
+	static int n;
+	static int[] dp;
+	static boolean[] visit;
+	static node[] arr;
+	static node[] line;
+	
+    public static void main(String args[]) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
+        
+ 
+        arr = new node[n];
+        dp = new int[n];
+        line = new node[n];
+        visit = new boolean[500001];
+        
+        
+        StringTokenizer st;
+        
+        for(int i = 0; i < n; i++) {
+        	st = new StringTokenizer(br.readLine()," ");
+        	int s = Integer.parseInt(st.nextToken());
+        	int e = Integer.parseInt(st.nextToken());
+        	arr[i] = new node(s,e);
+        	visit[s] = true;
+        }
+        
+        Arrays.sort(arr, new Comparator<node>() {
+
+			@Override
+			public int compare(node o1, node o2) {
+				
+				return o1.start - o2.start;
+			}
+		});
+        
+        
+        int idx = 0;
+        dp[0] = arr[0].end;
+        
+        line[0] = new node(0, arr[0].start);
+        
+        for(int i = 1; i < n; i++) {
+        	
+        	if(dp[idx] < arr[i].end) {
+        		dp[idx+1] = arr[i].end;
+        		idx+=1;
+        		line[i] = new node(idx,arr[i].start);
+        		
+        	}else {
+        		int search = binarysearch(0, idx, arr[i].end);
+        		dp[search] = arr[i].end;
+        		line[i] = new node(search,arr[i].start);
+        		
+        	}
+        	
+
+        }
+        
+        System.out.println(n-idx-1);
+        
+        for(int i = n-1; i>= 0; i--) {
+        	if(line[i].start == idx) {
+        		
+        		idx--;
+        		visit[line[i].end] = false;
+        	}
+        }
+        
+        for(int i = 0; i <= 500000; i++) {
+        	if(visit[i] == true) {
+        		System.out.println(i);
+        	}
+        }
+      
+    	
+
+    }
+    
+    public static int binarysearch(int left, int right, int goal) {
+    	
+    	while(left < right) {
+    		
+    		int mid = (left + right) / 2;
+    		
+    		if(dp[mid] >= goal) {
+    			right = mid;
+    		}else {
+    			left = mid+1;
+    		}
+    		
+    	}
+    	
+    	
+    	return right;
+    }
+    
+ 
+   
+    
+
+}
+
+
+
+ 
