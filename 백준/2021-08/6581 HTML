@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+		
+public class Main {
+	public static void main(String[] args) throws IOException {
+			
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		String line, next;
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
+		int cnt=0;
+		while((line=br.readLine())!=null) {
+			st = new StringTokenizer(line);
+			while(st.hasMoreTokens()) {
+				next = st.nextToken();
+				
+				if(next.equals("<br>")) {
+					if(sb.charAt(sb.length()-1)==' ') {
+						sb.deleteCharAt(sb.length()-1);
+					}
+					sb.append('\n');
+					cnt=0;
+				}
+				else if(next.equals("<hr>")) {
+					if(sb.charAt(sb.length()-1)==' ') {
+						sb.deleteCharAt(sb.length()-1);
+					}
+					if(cnt!=0) {
+						sb.append('\n');
+					}
+					sb.append("--------------------------------------------------------------------------------").append('\n');
+					cnt=0;
+				}
+				else if(cnt+next.length()>80) {
+					if(sb.charAt(sb.length()-1)==' ') {
+						
+						sb.deleteCharAt(sb.length()-1);
+						
+					}
+					
+					sb.append('\n').append(next+" ");
+					cnt=next.length()+1;
+				}
+				else {	
+					sb.append(next+" ");
+					cnt+=next.length()+1;
+				}
+			}
+		}
+		if(sb.charAt(sb.length()-1)==' ') {
+			sb.deleteCharAt(sb.length()-1);
+		}
+		System.out.print(sb);
+	}
+}
