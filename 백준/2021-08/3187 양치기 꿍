@@ -1,0 +1,100 @@
+import java.io.*;
+import java.util.*;
+		
+public class Main {
+	
+	private static boolean[][] visit;
+	private static char[][] map;
+	private static int r,c;
+	private static int[] dx = {0,0,1,-1};
+	private static int[] dy = {1,-1,0,0};
+	private static int sheep = 0;
+	private static int wolf = 0;
+	
+	public static void main(String[] args) throws IOException {
+			
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		StringTokenizer st = new StringTokenizer(br.readLine()," ");
+		
+		r = Integer.parseInt(st.nextToken());
+		c = Integer.parseInt(st.nextToken());
+		map = new char[r][c];
+		visit = new boolean[r][c];
+		
+		for(int i = 0; i < r; i++) {
+			
+			String s = br.readLine();
+			
+			for(int j = 0; j < c; j++) {
+				map[i][j] = s.charAt(j);
+			}
+			
+		}
+		
+		for(int i = 0; i < r; i++) {
+			for(int j = 0; j < c; j++) {
+				if(visit[i][j] == false && map[i][j] != '#') {
+					bfs(new node(i,j));
+				}
+			}
+			
+		}
+		
+		System.out.println(sheep+" "+wolf);
+		
+	}
+	
+	private static void bfs(node node) {
+		
+		Queue<node> q = new LinkedList<>();
+		q.offer(node);
+		visit[node.x][node.y] = true;
+		
+		int wolfcnt = 0;
+		int sheepcnt = 0;
+		
+		while(!q.isEmpty()) {
+			node cur = q.poll();
+			
+			int x = cur.x;
+			int y = cur.y;
+			
+			if(map[x][y] == 'k') {
+				sheepcnt++;
+			}else if(map[x][y] == 'v') {
+				wolfcnt++;
+			}
+			
+			for(int i = 0; i < 4; i++) {
+				int nx = cur.x + dx[i];
+				int ny = cur.y + dy[i];
+				
+				if(nx < 0 || nx >= r || ny < 0 || ny >= c) continue;
+				if(map[nx][ny] == '#' || visit[nx][ny] == true) continue;
+				
+				visit[nx][ny] = true;
+				q.offer(new node(nx,ny));
+				
+			}
+			
+		}
+		
+		if(sheepcnt > wolfcnt) {
+			sheep += sheepcnt;
+		}else {
+			wolf += wolfcnt;
+		}
+		
+	}
+	
+	static class node{
+		int x,y;
+		
+		node(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
+		
+	}
+}
