@@ -1,0 +1,111 @@
+import java.io.*;
+import java.util.*;
+		
+public class Main {
+   
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int n = Integer.parseInt(br.readLine());
+        long arr[] = new long[n];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        for(int i = 0; i < n; i++) {
+        	arr[i] = Integer.parseInt(st.nextToken());
+        }
+        
+        Arrays.sort(arr);
+        
+        long[] res = new long[3];
+        long result = Long.MAX_VALUE;
+        
+        for(int i = 0; i < n; i++) {
+        		
+        	int start = i+1;
+        	int end = n-1;
+        	
+        	  while(start < end) {
+        		  
+        		  long sum = arr[i] + arr[start] + arr[end];
+        		  long value = Math.abs(sum);
+        		  
+        		  if(value < result) {
+        			  result = value;
+        			  res[0] = arr[i];
+        			  res[1] = arr[start];
+        			  res[2] = arr[end];
+        		  }
+        		  
+        		  if(sum > 0){
+        			  end--;
+        		  }else {
+        			  start++;
+        		  }
+        		
+        	        
+              }
+        	
+        }
+        
+      System.out.println(res[0]+" "+res[1]+" "+res[2]);
+
+       
+    }
+
+}import java.io.*;
+import java.util.*;
+		
+public class Main {
+   
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        int n = Integer.parseInt(br.readLine());
+        long arr[] = new long[n];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        for(int i = 0; i < n; i++) {
+        	arr[i] = Integer.parseInt(st.nextToken());
+        }
+        
+        Arrays.sort(arr);
+        
+        long[] res = new long[3];
+        long result = Long.MAX_VALUE;
+        
+        for(int i = 0; i < n; i++) {
+        		
+        	int start = i+1;
+        	int end = n-1;
+        	
+        	  while(start < end) {
+        		  
+        		  long sum = arr[i] + arr[start] + arr[end];
+        		  long value = Math.abs(sum);
+        		  
+        		  if(value < result) {
+        			  result = value;
+        			  res[0] = arr[i];
+        			  res[1] = arr[start];
+        			  res[2] = arr[end];
+        		  }
+        		  
+        		  if(sum > 0){
+        			  end--;
+        		  }else {
+        			  start++;
+        		  }
+        		
+        	        
+              }
+        	
+        }
+        
+      System.out.println(res[0]+" "+res[1]+" "+res[2]);
+
+       
+    }
+
+}
